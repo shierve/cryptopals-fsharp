@@ -1,6 +1,6 @@
 module Crypto.Analysis
 
-open Crypto.Data
+open Crypto
 
 
 let englishFrequency =
@@ -34,10 +34,10 @@ let englishFrequency =
     ]
 
 
-let frequencyEvaluation (d: Data): float =
+let frequencyEvaluation (d: byte[]): float =
     // Get data in lower case (only letters)
     let bytes =
-        d.data
+        d
         |> Array.map ( fun b -> if (b > byte 'A' && b < byte 'Z') then (b-65uy+97uy) else b )
         |> Array.filter (fun b -> b > 96uy && b < 123uy)
     let total = Array.length bytes
@@ -55,28 +55,28 @@ let frequencyEvaluation (d: Data): float =
         List.map2 (fun f1 f2 -> (f1-f2)**(float 2)) expected observed
         |> List.average
     // Apply a penalty for too many special characters (not counting spaces)
-    let spaces = Array.fold (fun acc ch -> if ch = byte ' ' then acc+1 else acc) 0 d.data
-    let symbolFreq: float = 1.0 - ( float ((Array.length bytes) + spaces) / float (Array.length d.data) )
+    let spaces = Array.fold (fun acc ch -> if ch = byte ' ' then acc+1 else acc) 0 d
+    let symbolFreq: float = 1.0 - ( float ((Array.length bytes) + spaces) / float (Array.length d) )
     let penalizer = 1.0 + symbolFreq
     meanSqErr * penalizer
 
 
-let frequencySort (a: (byte * Data)[]): (byte * Data * float)[] =
+let frequencySort (a: (byte * byte[])[]): (byte * byte[] * float)[] =
     let isWeirdAscii ch =
         (ch < 32uy || ch > 126uy) && ch <> 8uy && ch <> 9uy && ch <> 10uy
     a
-    |> Array.filter (fun (_, d) -> Array.forall (isWeirdAscii >> not) d.data)
+    |> Array.filter (fun (_, d) -> Array.forall (isWeirdAscii >> not) d)
     |> Array.map (fun (k, d) -> (k, d, frequencyEvaluation d))
     |> Array.sortBy (fun (_, _, f) -> f)
 
 
-let bestKey (cipher: Data): (byte * Data * float) option =
-    let keys = List.map ( fun k -> (byte k, (cipher ^^ (byte k))) ) [0 .. 255] |> List.toArray |> frequencySort
+let tryBestKey (cipher: byte[]): (byte * byte[] * float) option =
+    let keys = List.map ( fun k -> (byte k, (Data.singleByteXor cipher (byte k))) ) [0 .. 255] |> List.toArray |> frequencySort
     if Array.isEmpty keys then None
     else Some keys.[0]
 
 
-let hammingDistance (a: Data) (b: Data): int =
+let hammingDistance (a: byte[]) (b: byte[]): int =
     let bitsInByte (by: byte): int =
         let mutable b: byte = by
         let mutable bits = 0
@@ -85,5 +85,36 @@ let hammingDistance (a: Data) (b: Data): int =
             else ()
             b <- b >>> 1;
         bits
-    Array.map2 ( ^^^ ) a.data b.data
+    Array.map2 ( ^^^ ) a b
     |> Array.sumBy (bitsInByte)
+
+
+let bestKeySizes (cipher: byte[]): int[] =
+    List.map
+        (fun size ->
+            let par = [ for a in 0 .. 3 do yield (Array.sub cipher (size*a) size) ] 
+            let distances = 
+                [
+                    (hammingDistance par.[0] par.[1]);
+                    (hammingDistance par.[0] par.[2]);
+                    (hammingDistance par.[0] par.[3]);
+                    (hammingDistance par.[1] par.[2]);
+                    (hammingDistance par.[1] par.[3]);
+                    (hammingDistance par.[2] par.[3])
+                ]
+            (size, (List.averageBy float distances)/float size)
+        ) [2..40]  //[2..(Array.length cipher)/4] at max
+    |> List.sortBy (fun (_, d) -> d)
+    |> List.map (fun (s, _) -> s)
+    |> Array.ofList
+
+
+let partitionAndTranspose (data) (ks: int) =
+    // Preparation function for breaking repeating key
+    [|
+        for n in 0 .. ks-1 do
+            yield
+                Array.indexed data
+                |> Array.filter (fun (i, _) -> i%ks = n)
+                |> Array.map (fun (_, b) -> b)
+    |]
