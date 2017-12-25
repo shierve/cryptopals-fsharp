@@ -3,6 +3,9 @@ open Crypto
 open Crypto.Analysis
 open Crypto.Encryption
 
+
+(****  SET 1  ****)
+
 let ch1 () =
     let ch1String = "49276d206b696c6c696e6720796f757220627261696e206c696b65206120706f69736f6e6f7573206d757368726f6f6d";
     let d = Data.fromHex ch1String
@@ -59,7 +62,25 @@ let ch7 () =
     let plain = Aes.decryptECB cipher key
     printfn "Decrypted text:\n\n%A" (Data.asString plain)
 
+let ch8 () =
+    let path = __SOURCE_DIRECTORY__ + "/data/ch8.txt"
+    let ciphers = File.ReadAllLines path |> Array.map Data.fromHex
+    let maybeRepeatingBlock =
+        ciphers
+        |> Array.tryFindIndex
+            ( (Array.chunkBySize 16) >> (fun c -> Array.length (Array.distinct c) <> Array.length c) )
+    match maybeRepeatingBlock with
+    | Some index -> printfn "Repeating block found at line %A" (index+1)
+    | None -> printfn "No repeating blocks found"
+
+
+(****  SET 2  ****)
+
+let ch9 () =
+    0
+
+
 [<EntryPoint>]
 let main argv =
-    ch7 () |> ignore
+    ch8 () |> ignore
     0 // return an integer exit code
