@@ -37,7 +37,6 @@ I go crazy when I hear a cymbal"""
     |> (Data.asHex >> printfn "%A")
 
 let ch6 () =
-    printfn "Wokka wokka edit distance: %A\n" (hammingDistance (Data.fromString "this is a test") (Data.fromString "wokka wokka!!!"))
     let path = __SOURCE_DIRECTORY__ + "/data/ch6.txt"
     let cipher =
         File.ReadAllLines path
@@ -51,9 +50,16 @@ let ch6 () =
         |> Array.map (fun (k, _, _) -> k)
         |> Data.asString
     printfn "Key found: %A" key
-    repeatingKeyXor cipher key |> Data.asString |> printfn "Decrypted Text:\n\n%A" 
+    repeatingKeyXor cipher key |> Data.asString |> printfn "Decrypted Text:\n\n%A"
+
+let ch7 () =
+    let path = __SOURCE_DIRECTORY__ + "/data/ch7.txt"
+    let cipher = File.ReadAllLines path |> Array.reduce (+) |> Data.fromB64
+    let key = "YELLOW SUBMARINE" |> Data.fromString
+    let plain = Aes.decryptECB cipher key
+    printfn "Decrypted text:\n\n%A" (Data.asString plain)
 
 [<EntryPoint>]
 let main argv =
-    ch6 () |> ignore
+    ch7 () |> ignore
     0 // return an integer exit code

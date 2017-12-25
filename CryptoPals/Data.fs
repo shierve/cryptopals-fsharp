@@ -1,6 +1,5 @@
 module Crypto.Data
 
-open Crypto.Conversion
 open System
 open System.Text
 

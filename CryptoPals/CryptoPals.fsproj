@@ -48,7 +48,7 @@
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
     <Content Include="packages.config" />
-    <Compile Include="Conversion.fs" />
+    <Compile Include="Aes.fs" />
     <Compile Include="Data.fs" />
     <Compile Include="Analysis.fs" />
     <Compile Include="Encryption.fs" />

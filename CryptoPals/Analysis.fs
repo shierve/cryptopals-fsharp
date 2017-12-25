@@ -103,7 +103,8 @@ let bestKeySizes (cipher: byte[]): int[] =
                     (hammingDistance par.[2] par.[3])
                 ]
             (size, (List.averageBy float distances)/float size)
-        ) [2..40]  //[2..(Array.length cipher)/4] at max
+        ) [2..50]
+        //) [2..(Array.length cipher)/4] // at max
     |> List.sortBy (fun (_, d) -> d)
     |> List.map (fun (s, _) -> s)
     |> Array.ofList
