@@ -86,7 +86,7 @@ let ch10 () =
     let cipher = File.ReadAllLines path |> Array.reduce (+) |> Data.fromB64
     let key = Data.fromString "YELLOW SUBMARINE"
     let iv = Array.create 16 0uy
-    let dec = Aes.decryptCBC cipher key iv
+    let dec = Aes.decryptCBC key iv cipher
     printfn "Decrypted:\n\n%s" (Data.asString dec)
 
 let ch11 () =
@@ -104,10 +104,48 @@ let ch12 () =
         + "dXN0IHRvIHNheSBoaQpEaWQgeW91IHN0b3A/IE5vLCBJIGp1c3QgZHJvdmUgYnkK")
     let recoveredData = byteAtATime (Encryption.appendAndEncrypt append)
     // printfn "recovered data:\n\n%s" (Data.asString recoveredData)
-    recoveredData
+    ()
+
+let ch13 () =
+    let data = "XXXXXX@XX.admin" + (Data.asString (Array.create 11 11uy)) + "XXX"
+    let cipher = Server.profileFor data
+    let blocks = Array.chunkBySize 16 cipher
+    let forged = [|blocks.[0]; blocks.[3]; blocks.[2]; blocks.[1]|] |> Array.concat
+    let userObject = Server.parseProfile forged
+    printfn "forged user has role:\n\n%A" userObject.["role"]
+
+let ch14 () =
+    ch12() // Already implemented in challenge 12
+
+let ch15 () =
+    let m1 = Array.append (Data.fromString "ICE ICE BABY") (Array.create 4 4uy)
+    let m2 = Array.append (Data.fromString "ICE ICE BABY") (Array.create 4 5uy)
+    let m3 = Array.append (Data.fromString "ICE ICE BABY") [|1uy;2uy;3uy;4uy|]
+    Data.removePadding m1 |> Data.asString |> printfn "padding removed: %A"
+    try
+        Data.removePadding m2 |> ignore
+        ()
+    with
+    | Data.PaddingException msg -> printfn "padding exception: %A" msg
+    try
+        Data.removePadding m3 |> ignore
+        ()
+    with
+    | Data.PaddingException msg -> printfn "padding exception: %A" msg
+
+let ch16 () =
+    let injectString = "XXXXXXXXXXXXXXXX:admin<true"
+    let cipher = Server.encryptUserData injectString
+    Server.checkAdmin cipher |> printfn "admin: %A"
+    cipher.[32] <- cipher.[32] ^^^ 1uy
+    cipher.[38] <- cipher.[38] ^^^ 1uy
+    Server.checkAdmin cipher |> printfn "admin: %A"
 
 
 [<EntryPoint>]
 let main argv =
-    ch12 () |> ignore
+    let challenges: (unit -> unit)[] =
+        [|ch1;ch2;ch3;ch4;ch5;ch6;ch7;ch8;ch9;ch10;ch11;ch12;ch13;ch14;ch15;ch16|]
+    let challenge: (unit -> unit) = challenges.[(int argv.[0])-1]
+    challenge () |> ignore
     0 // return an integer exit code

@@ -45,7 +45,7 @@ let decryptECB (cipher: byte[]) (key: byte[]): byte[] =
             yield! decrypt (block) key
     |]
 
-let encryptCBC (plain: byte[]) (key: byte[]) (iv: byte[]): byte[] =
+let encryptCBC (key: byte[]) (iv: byte[]) (plain: byte[]): byte[] =
     let padded = Data.pad blockSize plain
     let mutable last = iv
     [|
@@ -54,7 +54,7 @@ let encryptCBC (plain: byte[]) (key: byte[]) (iv: byte[]): byte[] =
             yield! last
     |]
 
-let decryptCBC (cipher: byte[]) (key: byte[]) (iv: byte[]): byte[] =
+let decryptCBC (key: byte[]) (iv: byte[]) (cipher: byte[]): byte[] =
     [|
         let blocks = Array.chunkBySize blockSize cipher
         for (i, block) in (Array.indexed blocks) do

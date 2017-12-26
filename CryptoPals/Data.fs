@@ -32,10 +32,23 @@ let singleByteXor (a: byte[]) (b: byte) =
     |> Array.map2 ( ^^^ ) a
 
 let pad size (data: byte[]): byte[] =
-    // If size is < data.length then we pad to nearest multiple
-    let paddingLength = size - (data.Length % size)
-    Array.create paddingLength (byte paddingLength)
-    |> Array.append data
+    if data.Length%size = 0 then
+        Array.create size (byte size) |> Array.append data
+    else
+        let paddingLength = size - (data.Length % size)
+        Array.create paddingLength (byte paddingLength) |> Array.append data
+
+exception PaddingException of string
+
+let removePadding (data: byte[]) =
+    // If invalid padding we throw an exception
+    let lastByte = data.[data.Length-1]
+    let valid =
+        data.[(data.Length-(int lastByte))..]
+        |> Array.forall ((=) lastByte)
+    if valid then
+        data.[..(data.Length-(int lastByte)-1)]
+    else raise (PaddingException "Invalid Padding")
 
 let shiftLeft (data:byte[]) last =
     let a = Array.permute (fun i -> (data.Length+(i-1))%data.Length) data

@@ -29,7 +29,7 @@ let encryptionOracle (data: byte[]): byte[] =
     rnd.NextBytes(key)
     rnd.NextBytes(iv)
     if mode = 0 then Aes.encryptECB appended key
-    else Aes.encryptCBC appended key iv
+    else Aes.encryptCBC key iv appended
 
 let appendAndEncrypt (append: byte[]) data =
     let rnd = System.Random(int randomKey.[0])
