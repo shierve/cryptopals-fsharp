@@ -141,6 +141,7 @@ let byteAtATime (encrypt: byte[] -> byte[]): byte[] =
     // 3. Find append size
     let tSize = encrypt (Array.create (middleSize-1) 0uy) |> Array.length
     let appendSize = tSize - prependSize - middleSize
+    printfn "Block size: %A. Prepend size: %A. Append size: %A.\n" blockSize prependSize appendSize
     // 4. ???
     let append: byte[] = Array.create appendSize 0uy
     let prepadSize = (blockSize-(prependSize%blockSize))
@@ -157,6 +158,7 @@ let byteAtATime (encrypt: byte[] -> byte[]): byte[] =
             let blocks = (encrypt (Array.append testBlock [|x|])) |> Array.chunkBySize blockSize
             blocks.[baseBlock] = objective ) testBytes
         append.[i] <- foundByte
+        printf "%c" (System.Convert.ToChar foundByte)
         testBlock <- Data.shiftLeft testBlock foundByte
     // 5. Profit
     append

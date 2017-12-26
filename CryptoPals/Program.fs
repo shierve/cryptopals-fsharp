@@ -103,7 +103,8 @@ let ch12 () =
         + "aGFpciBjYW4gYmxvdwpUaGUgZ2lybGllcyBvbiBzdGFuZGJ5IHdhdmluZyBq"
         + "dXN0IHRvIHNheSBoaQpEaWQgeW91IHN0b3A/IE5vLCBJIGp1c3QgZHJvdmUgYnkK")
     let recoveredData = byteAtATime (Encryption.appendAndEncrypt append)
-    printfn "recovered data:\n\n%s" (Data.asString recoveredData)
+    // printfn "recovered data:\n\n%s" (Data.asString recoveredData)
+    recoveredData
 
 
 [<EntryPoint>]
