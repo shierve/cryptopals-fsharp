@@ -28,5 +28,16 @@ let fromString (s: string) = Encoding.ASCII.GetBytes s
 let xor (a: byte[]) (b: byte[]) = Array.map2 ( ^^^ ) a b
 
 let singleByteXor (a: byte[]) (b: byte) =
-    Array.create (Array.length (a)) b
+    Array.create a.Length b
     |> Array.map2 ( ^^^ ) a
+
+let pad size (data: byte[]): byte[] =
+    // If size is < data.length then we pad to nearest multiple
+    let paddingLength = size - (data.Length % size)
+    Array.create paddingLength (byte paddingLength)
+    |> Array.append data
+
+let shiftLeft (data:byte[]) last =
+    let a = Array.permute (fun i -> (data.Length+(i-1))%data.Length) data
+    a.[a.Length-1] <- last
+    a

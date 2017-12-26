@@ -56,7 +56,7 @@ let frequencyEvaluation (d: byte[]): float =
         |> List.average
     // Apply a penalty for too many special characters (not counting spaces)
     let spaces = Array.fold (fun acc ch -> if ch = byte ' ' then acc+1 else acc) 0 d
-    let symbolFreq: float = 1.0 - ( float ((Array.length bytes) + spaces) / float (Array.length d) )
+    let symbolFreq: float = 1.0 - ( float (bytes.Length + spaces) / float d.Length )
     let penalizer = 1.0 + symbolFreq
     meanSqErr * penalizer
 
@@ -80,7 +80,7 @@ let hammingDistance (a: byte[]) (b: byte[]): int =
     let bitsInByte (by: byte): int =
         let mutable b: byte = by
         let mutable bits = 0
-        for i = 0 to 7 do
+        for _i = 0 to 7 do
             if (b%2uy <> 0uy) then bits <- bits + 1
             else ()
             b <- b >>> 1;
@@ -119,3 +119,44 @@ let partitionAndTranspose (data) (ks: int) =
                 |> Array.filter (fun (i, _) -> i%ks = n)
                 |> Array.map (fun (_, b) -> b)
     |]
+
+let byteAtATime (encrypt: byte[] -> byte[]): byte[] =
+    // Recovers append string from function that ECB appends then ECB encrypts
+    // 1. Find block size
+    let emptyEncrypt = encrypt (Array.empty)
+    let (middleSize, jumpEncrypt) =
+        List.find (fun (_, c) -> (Array.length >> ((<>) emptyEncrypt.Length)) c)
+            (List.map (fun s -> Array.create s 0uy |> encrypt |> (fun ci -> (s, ci))) [1..64])
+    let blockSize = jumpEncrypt.Length - emptyEncrypt.Length
+    // |XXXXXXXXXX--+---|+---+---+---+---|AAAAAA--+---+---|+---+---+---+---|
+    // 2. Find prepend size
+    let chunked = (Array.create (blockSize*3) 0uy) |> encrypt |> Array.chunkBySize blockSize
+    let repeating = chunked |> Array.indexed |> Array.findIndex (fun (i, b) -> b = chunked.[i+1])
+    let inequalSize: int =
+        List.find (fun (_, c: byte[][]) -> c.[repeating] <> c.[repeating+1])
+            (List.map (fun s -> Array.create s 0uy |> encrypt |> Array.chunkBySize blockSize |> (fun c -> (s, c)))
+                [for i = (blockSize*3) downto blockSize do yield i])
+        |> (fun (i, _) -> i)
+    let prependSize = (blockSize - ((inequalSize+1)%blockSize))+(blockSize*(repeating-1))
+    // 3. Find append size
+    let tSize = encrypt (Array.create (middleSize-1) 0uy) |> Array.length
+    let appendSize = tSize - prependSize - middleSize
+    // 4. ???
+    let append: byte[] = Array.create appendSize 0uy
+    let prepadSize = (blockSize-(prependSize%blockSize))
+    let mutable testBlock = Array.create (prepadSize + blockSize-1) 0uy
+    let baseBlock = (prependSize + (blockSize - (prependSize % blockSize)))/blockSize
+    let testBytes = [0..128] |> List.map byte
+    for i = 0 to (appendSize-1) do
+        let currentBlock = baseBlock + (i/blockSize)
+        let objective =
+            encrypt (Array.create (prepadSize + blockSize - (i%blockSize) - 1) 0uy)
+            |> Array.chunkBySize blockSize
+            |> (fun blocks -> blocks.[currentBlock])
+        let foundByte = List.find (fun x -> 
+            let blocks = (encrypt (Array.append testBlock [|x|])) |> Array.chunkBySize blockSize
+            blocks.[baseBlock] = objective ) testBytes
+        append.[i] <- foundByte
+        testBlock <- Data.shiftLeft testBlock foundByte
+    // 5. Profit
+    append

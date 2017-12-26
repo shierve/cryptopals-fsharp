@@ -7,7 +7,7 @@ open System
 let blockSize = 16
 
 let encrypt (block: byte[]) key =
-    if (Array.length block <> blockSize)
+    if (block.Length <> blockSize)
     then raise (System.ArgumentException("Block must be of blockSize bytes"))
     else
         use aes = new AesManaged()
@@ -20,7 +20,7 @@ let encrypt (block: byte[]) key =
         output
 
 let decrypt (block: byte[]) key =
-    if (Array.length block <> blockSize)
+    if (block.Length <> blockSize)
     then raise (System.ArgumentException("Block must be of blockSize bytes"))
     else
         use aes = new AesManaged()
@@ -33,8 +33,9 @@ let decrypt (block: byte[]) key =
         output
 
 let encryptECB (plain: byte[]) (key: byte[]): byte[] =
+    let padded = Data.pad blockSize plain
     [|
-        for block in plain |> Array.chunkBySize blockSize do
+        for block in padded |> Array.chunkBySize blockSize do
             yield! encrypt (block) key
     |]
 
@@ -42,4 +43,23 @@ let decryptECB (cipher: byte[]) (key: byte[]): byte[] =
     [|
         for block in cipher |> Array.chunkBySize blockSize do
             yield! decrypt (block) key
+    |]
+
+let encryptCBC (plain: byte[]) (key: byte[]) (iv: byte[]): byte[] =
+    let padded = Data.pad blockSize plain
+    let mutable last = iv
+    [|
+        for block in padded |> Array.chunkBySize blockSize do
+            last <- encrypt (Data.xor block last) key
+            yield! last
+    |]
+
+let decryptCBC (cipher: byte[]) (key: byte[]) (iv: byte[]): byte[] =
+    [|
+        let blocks = Array.chunkBySize blockSize cipher
+        for (i, block) in (Array.indexed blocks) do
+            let lastCipher =
+                if i = 0 then iv
+                else blocks.[i-1]
+            yield! Data.xor (decrypt (block) key) lastCipher
     |]
