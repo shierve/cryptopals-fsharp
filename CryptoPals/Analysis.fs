@@ -162,3 +162,35 @@ let byteAtATime (encrypt: byte[] -> byte[]): byte[] =
         testBlock <- Data.shiftLeft testBlock foundByte
     // 5. Profit
     append
+
+let paddingOracleAttack (oracle: (byte[] * byte[]) -> bool) (iv: byte[], cipher: byte[]) =
+    let blockSize = Array.length iv
+    let blocks = Array.chunkBySize blockSize cipher
+    // Define function to break a block
+    let breakBlock (previous: byte[], block: byte[]) =
+        let mutable testBlock: byte[] = Array.zeroCreate blockSize
+        let plainBlock: byte[] = Array.zeroCreate blockSize
+        // last byte
+        let bytes = seq { for i in 0 .. 255 -> byte i }
+        plainBlock.[blockSize-1] <- Seq.find (fun b ->
+            testBlock.[blockSize-1] <- (b ^^^ 1uy ^^^ previous.[blockSize-1])
+            if oracle (testBlock, block) then
+                testBlock.[blockSize-2] <- testBlock.[blockSize-2] ^^^ 255uy
+                oracle (testBlock, block)
+            else
+                false
+        ) bytes
+        // the rest
+        for i = 2 to blockSize do
+            let pos = blockSize-i
+            let plainopt = Seq.tryFind (fun b ->
+                testBlock <- Array.map (fun n -> plainBlock.[n] ^^^ (byte i) ^^^ previous.[n]) [| 0..(blockSize-1) |]
+                testBlock.[pos] <- (b ^^^ (byte i) ^^^ previous.[pos])
+                oracle (testBlock, block) ) bytes
+            plainBlock.[pos] <- match plainopt with
+                                | Some b -> b
+                                | None -> 63uy
+        plainBlock
+    // Separate in groups of two blocks (tuples)
+    let tuples = Array.scan ( fun (_, last) block -> (last, block) ) (iv, blocks.[0]) blocks.[1..]
+    Array.collect breakBlock tuples

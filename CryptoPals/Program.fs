@@ -142,10 +142,17 @@ let ch16 () =
     Server.checkAdmin cipher |> printfn "admin: %A"
 
 
+(****  SET 3  ****)
+
+let ch17 () =
+    let plain = Analysis.paddingOracleAttack Encryption.paddingOracle (Encryption.encryptRandomString ())
+    printfn "%s" (Data.asString plain)
+
+
 [<EntryPoint>]
 let main argv =
     let challenges: (unit -> unit)[] =
-        [|ch1;ch2;ch3;ch4;ch5;ch6;ch7;ch8;ch9;ch10;ch11;ch12;ch13;ch14;ch15;ch16|]
+        [|ch1;ch2;ch3;ch4;ch5;ch6;ch7;ch8;ch9;ch10;ch11;ch12;ch13;ch14;ch15;ch16;ch17|]
     let challenge: (unit -> unit) = challenges.[(int argv.[0])-1]
-    challenge () |> ignore
+    challenge ()
     0 // return an integer exit code

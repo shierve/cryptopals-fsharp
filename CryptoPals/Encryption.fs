@@ -2,6 +2,7 @@ module Crypto.Encryption
 
 open System.Text
 open Crypto
+open System.IO
 
 let randomKey =
     let arr = Array.create 16 0uy
@@ -38,3 +39,22 @@ let appendAndEncrypt (append: byte[]) data =
     rnd.NextBytes(prep)
     let appended = Array.concat [|prep; data; append|]
     Aes.encryptECB appended randomKey
+
+let encryptRandomString () =
+    let path = __SOURCE_DIRECTORY__ + "/data/ch17.txt"
+    let dataList = File.ReadAllLines path |> Array.map (Data.fromB64 >> Data.pad 16)
+    let iv = Array.create 16 0uy
+    let rnd = System.Random()
+    rnd.NextBytes(iv)
+    let choice = rnd.Next(dataList.Length)
+    let cipher = Aes.encryptCBC randomKey iv dataList.[choice]
+    (iv, cipher)
+
+let paddingOracle (iv: byte[], cipher: byte[]): bool =
+    let plain = Aes.decryptCBC randomKey iv cipher
+    try
+        Data.removePadding plain |> ignore
+        true
+    with
+    | Data.PaddingException _ -> false
+
