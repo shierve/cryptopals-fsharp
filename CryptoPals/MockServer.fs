@@ -9,7 +9,6 @@ let randomKey =
     rnd.NextBytes(arr)
     arr
 
-
 let profileFor (email: string): byte[] =
     let sanitized = String.filter (fun c -> (c <> '&') && (c <> '=')) email
     Aes.encryptECB (Data.fromString ("email=" + sanitized + "&uid=10&role=user")) randomKey

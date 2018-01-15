@@ -57,7 +57,7 @@ let frequencyEvaluation (d: byte[]): float =
     // Apply a penalty for too many special characters (not counting spaces)
     let spaces = Array.fold (fun acc ch -> if ch = byte ' ' then acc+1 else acc) 0 d
     let symbolFreq: float = 1.0 - ( float (bytes.Length + spaces) / float d.Length )
-    let penalizer = 1.0 + symbolFreq
+    let penalizer = 1.0 + (symbolFreq)
     meanSqErr * penalizer
 
 

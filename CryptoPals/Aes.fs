@@ -63,3 +63,13 @@ let decryptCBC (key: byte[]) (iv: byte[]) (cipher: byte[]): byte[] =
                 else blocks.[i-1]
             yield! Data.xor (decrypt (block) key) lastCipher
     |]
+
+let CTR (key: byte[]) (nonce: byte[]) (plain: byte[]): byte[] =
+    let zeroes = Array.create (blockSize - nonce.Length - 4) 0uy
+    Array.chunkBySize blockSize plain
+    |> Array.mapi (fun i block ->
+            let counter = Array.concat [| nonce; (Data.fromInt i); zeroes |]
+            let encryptedC = encrypt counter key
+            Data.xor encryptedC block
+        )
+    |> Array.concat

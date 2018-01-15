@@ -2,6 +2,7 @@
 open Crypto
 open Crypto.Analysis
 open Crypto.Encryption
+open System
 
 
 (****  SET 1  ****)
@@ -110,6 +111,7 @@ let ch13 () =
     let data = "XXXXXX@XX.admin" + (Data.asString (Array.create 11 11uy)) + "XXX"
     let cipher = Server.profileFor data
     let blocks = Array.chunkBySize 16 cipher
+    Data.asHex cipher |> printfn "%A"
     let forged = [|blocks.[0]; blocks.[3]; blocks.[2]; blocks.[1]|] |> Array.concat
     let userObject = Server.parseProfile forged
     printfn "forged user has role:\n\n%A" userObject.["role"]
@@ -126,12 +128,12 @@ let ch15 () =
         Data.removePadding m2 |> ignore
         ()
     with
-    | Data.PaddingException msg -> printfn "padding exception: %A" msg
+    | Data.PaddingException -> printfn "padding exception"
     try
         Data.removePadding m3 |> ignore
         ()
     with
-    | Data.PaddingException msg -> printfn "padding exception: %A" msg
+    | Data.PaddingException -> printfn "padding exception"
 
 let ch16 () =
     let injectString = "XXXXXXXXXXXXXXXX:admin<true"
@@ -145,14 +147,89 @@ let ch16 () =
 (****  SET 3  ****)
 
 let ch17 () =
-    let plain = Analysis.paddingOracleAttack Encryption.paddingOracle (Encryption.encryptRandomString ())
-    printfn "%s" (Data.asString plain)
+    let plain =
+        Encryption.encryptRandomString ()
+        |> Analysis.paddingOracleAttack Encryption.paddingOracle
+    plain |> Data.removePadding |> Data.asString |> printfn "%s"
+
+let ch18 () =
+    let cipher = Data.fromB64 "L77na/nrFsKvynd6HzOoG7GHTLXsTVu9qvY/2syLXzhPweyyMTJULu/6/kXX0KSvoOLSFQ=="
+    let key = Data.fromString "YELLOW SUBMARINE"
+    let nonce = Data.fromInt 0 |> Array.append (Array.create 4 0uy)
+    let plain = Aes.CTR key nonce cipher
+    printfn "%s" (plain |> Data.asString)
+
+let ch19 () =
+    let path = __SOURCE_DIRECTORY__ + "/data/ch19.txt"
+    let key = Data.fromString "YELLOW SUBMARINE"
+    let nonce = Data.fromInt 6138071 |> Array.append (Array.create 4 0uy)
+    let ciphers =
+        File.ReadAllLines path
+        |> Array.map (Data.fromB64 >> (Aes.CTR key nonce))
+    let maxLength = Array.maxBy (fun (arr: byte[]) -> arr.Length) ciphers |> Array.length
+    let groupedBytes = [
+        for i = 0 to (maxLength - 1) do
+            yield Array.choose (fun (cipher: byte[]) ->
+                if cipher.Length > i then
+                    Some (cipher.[i])
+                else
+                    None
+            ) ciphers
+    ]
+    let mutable key =
+        groupedBytes
+        |> List.choose tryBestKey
+        |> List.map (fun (k, _, _) -> k)
+        |> Array.ofList
+    let testKey () =
+        ciphers
+        |> Array.map ((fun cipher -> Data.xor cipher key)
+            >> Data.asString
+            >> printfn "%s"
+        ) |> ignore
+    testKey ()
+    printfn "\n> Input a position and a byte to change the byte in that position, q to quit."
+    let mutable input: string[] = (Console.ReadLine()).Split ' '
+    while input.[0] <> "q" do
+        key.[int input.[0]] <- (byte input.[1])
+        testKey ()
+        printfn "\n> Input a position and a byte to change the byte in that position, q to quit."
+        input <- (Console.ReadLine()).Split ' '
+
+let ch20 () =
+    // same as 19
+    let path = __SOURCE_DIRECTORY__ + "/data/ch20.txt"
+    let key = Data.fromString "YELLOW SUBMARINE"
+    let nonce = Data.fromInt 518071 |> Array.append (Array.create 4 0uy)
+    let ciphers =
+        File.ReadAllLines path
+        |> Array.map (Data.fromB64 >> (Aes.CTR key nonce))
+    let maxLength = Array.maxBy (fun (arr: byte[]) -> arr.Length) ciphers |> Array.length
+    let groupedBytes = [
+        for i = 0 to (maxLength - 1) do
+            yield Array.choose (fun (cipher: byte[]) ->
+                if cipher.Length > i then
+                    Some (cipher.[i])
+                else
+                    None
+            ) ciphers
+    ]
+    let key =
+        groupedBytes
+        |> List.choose tryBestKey
+        |> List.map (fun (k, _, _) -> k)
+        |> Array.ofList
+    ciphers
+    |> Array.map ((fun cipher -> Data.xor cipher key)
+        >> Data.asString
+        >> printfn "%s"
+    ) |> ignore
 
 
 [<EntryPoint>]
 let main argv =
     let challenges: (unit -> unit)[] =
-        [|ch1;ch2;ch3;ch4;ch5;ch6;ch7;ch8;ch9;ch10;ch11;ch12;ch13;ch14;ch15;ch16;ch17|]
+        [|ch1;ch2;ch3;ch4;ch5;ch6;ch7;ch8;ch9;ch10;ch11;ch12;ch13;ch14;ch15;ch16;ch17;ch18;ch19;ch20|]
     let challenge: (unit -> unit) = challenges.[(int argv.[0])-1]
     challenge ()
     0 // return an integer exit code

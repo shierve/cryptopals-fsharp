@@ -56,5 +56,5 @@ let paddingOracle (iv: byte[], cipher: byte[]): bool =
         Data.removePadding plain |> ignore
         true
     with
-    | Data.PaddingException _ -> false
+    | Data.PaddingException -> false
 

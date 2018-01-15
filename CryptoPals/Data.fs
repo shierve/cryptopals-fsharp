@@ -4,7 +4,7 @@ open System
 open System.Text
 
 
-exception PaddingException of string
+exception PaddingException
 
 let removePadding (data: byte[]) =
     // If invalid padding we throw an exception
@@ -19,7 +19,13 @@ let removePadding (data: byte[]) =
             [||]
         else
             data.[..(data.Length-(int lastByte)-1)]
-    else raise (PaddingException "Invalid Padding")
+    else raise PaddingException
+
+let tryRemovePadding (data: byte[]) =
+    try
+        removePadding data
+    with
+    | PaddingException -> data
 
 let asB64 (d: byte[]): string = Convert.ToBase64String d
 
@@ -28,9 +34,7 @@ let asHex (d: byte[]): string =
     |> Array.map (fun (x : byte) -> String.Format("{0:X2}", x))
     |> String.concat String.Empty
 
-let asString (d: byte[]): string =
-    (removePadding d)
-    |> Encoding.ASCII.GetString
+let asString (d: byte[]): string = Encoding.ASCII.GetString d
 
 let fromB64 (s: string) = Convert.FromBase64String s
 
@@ -44,7 +48,28 @@ let fromHex (s: string) =
 
 let fromString (s: string) = Encoding.ASCII.GetBytes s
 
-let xor (a: byte[]) (b: byte[]) = Array.map2 ( ^^^ ) a b
+let fromInt (number: int) =
+    let bytes = BitConverter.GetBytes number
+    if (not BitConverter.IsLittleEndian) then
+        Array.rev bytes
+    else
+        bytes
+
+let fromIntBigEndian (number: int) =
+    let bytes = BitConverter.GetBytes number
+    if (BitConverter.IsLittleEndian) then
+        Array.rev bytes
+    else
+        bytes
+
+let xor (a: byte[]) (b: byte[]) =
+    if (a.Length <> b.Length) then
+        let l = min a.Length b.Length
+        let a' = a.[..l-1]
+        let b' = b.[..l-1]
+        Array.map2 ( ^^^ ) a' b'
+    else
+        Array.map2 ( ^^^ ) a b
 
 let singleByteXor (a: byte[]) (b: byte) =
     Array.create a.Length b
