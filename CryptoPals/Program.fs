@@ -248,28 +248,20 @@ let ch22 () =
            do! Async.Sleep(seconds2 * 1000)
            output <- RNG.randInt ()
         }
-    let brk =
-        async {
-            printfn "Start search"
-            let dTime = DateTime.Now
-            let mutable ts = int (dTime.ToUniversalTime() - epoch).TotalSeconds
-            RNG.seed ts
-            let mutable forged = RNG.randInt ()
-            while forged <> output do
-                ts <- ts - 1
-                RNG.seed ts
-                forged <- RNG.randInt ()
-            printfn "Found timestamp: %A" ts
-        }
-
     [ wait ]
     |> Async.Parallel
     |> Async.RunSynchronously
     |> ignore
-    [ brk ]
-    |> Async.Parallel
-    |> Async.RunSynchronously
-    |> ignore
+    printfn "Start search"
+    let dTime = DateTime.Now
+    let mutable ts = int (dTime.ToUniversalTime() - epoch).TotalSeconds
+    RNG.seed ts
+    let mutable forged = RNG.randInt ()
+    while forged <> output do
+        ts <- ts - 1
+        RNG.seed ts
+        forged <- RNG.randInt ()
+    printfn "Found timestamp: %A" ts
 
 
 [<EntryPoint>]
