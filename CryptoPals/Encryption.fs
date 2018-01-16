@@ -3,6 +3,7 @@ module Crypto.Encryption
 open System.Text
 open Crypto
 open System.IO
+open Crypto.RNG
 
 let randomKey =
     let arr = Array.create 16 0uy
@@ -58,3 +59,8 @@ let paddingOracle (iv: byte[], cipher: byte[]): bool =
     with
     | Data.PaddingException -> false
 
+let mt19937Cipher (data: byte[]) (seed: int): byte[] =
+    let rng = MT19937()
+    rng.Seed seed
+    data
+    |> Array.map (fun b -> b ^^^ (byte (rng.RandInt32())) )

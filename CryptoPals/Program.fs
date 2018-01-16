@@ -231,11 +231,14 @@ let ch21 () =
     for _i = 0 to 100 do
         printfn "%A" (rng.RandInt32())
 
-let ch22 () =
-    let rng = MT19937()
+let unixTimestamp () =
     let dateTime = DateTime.Now
     let epoch = DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)
-    let timestamp = int (dateTime.ToUniversalTime() - epoch).TotalSeconds
+    int (dateTime.ToUniversalTime() - epoch).TotalSeconds
+
+let ch22 () =
+    let rng = MT19937()
+    let timestamp = unixTimestamp()
     printfn "Start timestamp: %A" timestamp
     let seconds1 = Random().Next(40,1000)
     let seconds2 = Random().Next(40,1000)
@@ -243,8 +246,7 @@ let ch22 () =
     let wait =
         async {
            do! Async.Sleep(seconds1 * 1000)
-           let dTime = DateTime.Now
-           let ts = int (dTime.ToUniversalTime() - epoch).TotalSeconds
+           let ts = unixTimestamp()
            printfn "Target timestamp: %A" ts
            rng.Seed ts
            do! Async.Sleep(seconds2 * 1000)
@@ -255,8 +257,7 @@ let ch22 () =
     |> Async.RunSynchronously
     |> ignore
     printfn "Start search"
-    let dTime = DateTime.Now
-    let mutable ts = int (dTime.ToUniversalTime() - epoch).TotalSeconds
+    let mutable ts = unixTimestamp()
     rng.Seed ts
     let mutable forged = rng.RandInt ()
     while forged <> output do
@@ -266,7 +267,19 @@ let ch22 () =
     printfn "Found timestamp: %A" ts
 
 let ch23 () =
-    ()
+    let rng = MT19937()
+    rng.Seed (unixTimestamp())
+    rng.Init 123u
+    let mtclone = Array.create 624 0u
+    for i = 0 to 623 do
+        let output = rng.RandInt32()
+        if i = 0 then printfn "sd? %A" output
+        mtclone.[i] <- mt19937Untamper output
+    let clone = MT19937()
+    clone.State { mt = mtclone; mti = 0}
+    for _i = 0 to 100 do
+        rng.RandInt() |> abs |> printfn "original: %A"
+        clone.RandInt() |> abs |> printfn "clone: %A"
 
 
 [<EntryPoint>]

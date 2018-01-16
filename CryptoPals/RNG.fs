@@ -1,10 +1,12 @@
 module Crypto.RNG
 
+exception RngException of string
+
 let n = 624
 type State = { mt: uint32[]; mutable mti: int; }
 
 type MT19937() =
-    let state = { mt = Array.create n 0u; mti = 0 }
+    let mutable state = { mt = Array.create n 0u; mti = -1 }
 
     member this.Init seed =
         let ml = 1812433253u
@@ -16,6 +18,8 @@ type MT19937() =
 
     member this.Seed (n: int) = this.Init (uint32 n)
 
+    member this.State (s: State) = state <- s
+
     member this.GenNumbers () =
         for i = 0 to n-1 do
             let y = (state.mt.[i] &&& 0x80000000u) + (state.mt.[(i+1) % n] &&& 0x7fffffffu)
@@ -23,6 +27,7 @@ type MT19937() =
             if y % 2u <> 0u then state.mt.[i] <- state.mt.[i] ^^^ 0x9908b0dfu
 
     member this.RandInt32 () =
+        if state.mti = -1 then raise (RngException("RNG not initialized"))
         if state.mti = 0 then this.GenNumbers ()
         let mutable y = state.mt.[state.mti]
         y <- y ^^^ (y >>> 11)

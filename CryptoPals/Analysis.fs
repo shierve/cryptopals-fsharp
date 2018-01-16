@@ -195,7 +195,7 @@ let paddingOracleAttack (oracle: (byte[] * byte[]) -> bool) (iv: byte[], cipher:
     let tuples = Array.scan ( fun (_, last) block -> (last, block) ) (iv, blocks.[0]) blocks.[1..]
     Array.collect breakBlock tuples
 
-let mt19937Untemper (n: uint32) =
+let mt19937Untamper (n: uint32) =
     let mutable z = n
     let mutable y = z ^^^ (z >>> 18)
     // y = y xor ((y << 15) && 0xefc..)
