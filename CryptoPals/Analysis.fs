@@ -194,3 +194,18 @@ let paddingOracleAttack (oracle: (byte[] * byte[]) -> bool) (iv: byte[], cipher:
     // Separate in groups of two blocks (tuples)
     let tuples = Array.scan ( fun (_, last) block -> (last, block) ) (iv, blocks.[0]) blocks.[1..]
     Array.collect breakBlock tuples
+
+let mt19937Untemper (n: uint32) =
+    let mutable z = n
+    let mutable y = z ^^^ (z >>> 18)
+    // y = y xor ((y << 15) && 0xefc..)
+    z <- y ^^^ ((y <<< 15) &&& 0xefc60000u)
+    // y = y xor ((y << 7) && 0x9d2c...)
+    y <- z ^^^ ((z <<< 7) &&& 0x9d2c5680u)
+    y <- z ^^^ ((y <<< 7) &&& 0x9d2c5680u)
+    y <- z ^^^ ((y <<< 7) &&& 0x9d2c5680u)
+    z <- z ^^^ ((y <<< 7) &&& 0x9d2c5680u)
+    // y xor (y >> 11)
+    y <- z ^^^ (z >>> 11)
+    z ^^^ (y >>> 11)
+
