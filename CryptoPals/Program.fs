@@ -197,7 +197,7 @@ let ch19 () =
         input <- (Console.ReadLine()).Split ' '
 
 let ch20 () =
-    // same as 19
+    // same as 19, but with higher success
     let path = __SOURCE_DIRECTORY__ + "/data/ch20.txt"
     let key = Data.fromString "YELLOW SUBMARINE"
     let nonce = Data.fromInt 518071 |> Array.append (Array.create 4 0uy)
@@ -225,11 +225,61 @@ let ch20 () =
         >> printfn "%s"
     ) |> ignore
 
+let ch21 () =
+    RNG.initRng 1131464071u
+    for _i = 0 to 100 do
+        printfn "%A" (RNG.randInt32 ())
+
+let ch22 () =
+    let dateTime = DateTime.Now
+    let epoch = DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+    let timestamp = int (dateTime.ToUniversalTime() - epoch).TotalSeconds
+    printfn "Start timestamp: %A" timestamp
+    let seconds1 = Random().Next(40,1000)
+    let seconds2 = Random().Next(40,1000)
+    let mutable output = 0
+    let wait =
+        async {
+           do! Async.Sleep(seconds1 * 1000)
+           let dTime = DateTime.Now
+           let ts = int (dTime.ToUniversalTime() - epoch).TotalSeconds
+           printfn "Target timestamp: %A" ts
+           RNG.seed ts
+           do! Async.Sleep(seconds2 * 1000)
+           output <- RNG.randInt ()
+        }
+    let brk =
+        async {
+            printfn "Start search"
+            let dTime = DateTime.Now
+            let mutable ts = int (dTime.ToUniversalTime() - epoch).TotalSeconds
+            RNG.seed ts
+            let mutable forged = RNG.randInt ()
+            while forged <> output do
+                ts <- ts - 1
+                RNG.seed ts
+                forged <- RNG.randInt ()
+            printfn "Found timestamp: %A" ts
+        }
+
+    [ wait ]
+    |> Async.Parallel
+    |> Async.RunSynchronously
+    |> ignore
+    [ brk ]
+    |> Async.Parallel
+    |> Async.RunSynchronously
+    |> ignore
+
 
 [<EntryPoint>]
 let main argv =
     let challenges: (unit -> unit)[] =
-        [|ch1;ch2;ch3;ch4;ch5;ch6;ch7;ch8;ch9;ch10;ch11;ch12;ch13;ch14;ch15;ch16;ch17;ch18;ch19;ch20|]
+        [|
+            ch1; ch2; ch3; ch4; ch5; ch6; ch7; ch8;  // SET 1
+            ch9; ch10; ch11; ch12; ch13; ch14; ch15; ch16;  // SET 2
+            ch17; ch18; ch19; ch20; ch21; ch22;  // SET 3
+        |]
     let challenge: (unit -> unit) = challenges.[(int argv.[0])-1]
     challenge ()
     0 // return an integer exit code

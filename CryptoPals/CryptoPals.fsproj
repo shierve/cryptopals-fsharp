@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
+    <Compile Include="RNG.fs" />
     <Content Include="packages.config" />
     <Compile Include="Data.fs" />
     <Compile Include="Aes.fs" />
