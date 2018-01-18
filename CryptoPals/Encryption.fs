@@ -48,11 +48,11 @@ let encryptRandomString () =
     let rnd = System.Random()
     rnd.NextBytes(iv)
     let choice = rnd.Next(dataList.Length)
-    let cipher = Aes.encryptCBC randomKey iv dataList.[choice]
-    (iv, cipher)
+    let ciphertext = Aes.encryptCBC randomKey iv dataList.[choice]
+    (iv, ciphertext)
 
-let paddingOracle (iv: byte[], cipher: byte[]): bool =
-    let plain = Aes.decryptCBC randomKey iv cipher
+let paddingOracle (iv: byte[], ciphertext: byte[]): bool =
+    let plain = Aes.decryptCBC randomKey iv ciphertext
     try
         Data.removePadding plain |> ignore
         true

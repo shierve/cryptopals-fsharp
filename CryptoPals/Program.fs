@@ -19,8 +19,9 @@ let ch2 () =
     Data.asHex xord |> printfn "%s"
 
 let ch3 () =
-    let cipher = Data.fromHex "1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736"
-    let candidates: (byte * byte[])[] = List.map ( fun k -> (byte k, (Data.singleByteXor cipher (byte k))) ) [0 .. 255] |> List.toArray
+    let ciphertext = Data.fromHex "1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736"
+    let candidates: (byte * byte[])[] =
+        List.map ( fun k -> (byte k, (Data.singleByteXor ciphertext (byte k))) ) [0 .. 255] |> List.toArray
     let sortedCandidates = frequencySort candidates
     printfn "There are %A valid candidates:" (Array.length sortedCandidates)
     Array.iter (fun (k, d, s) -> printfn "[key: %A] %A (Score: %A)" k (Data.asString d) s) sortedCandidates
@@ -42,32 +43,32 @@ I go crazy when I hear a cymbal"""
 
 let ch6 () =
     let path = __SOURCE_DIRECTORY__ + "/data/ch6.txt"
-    let cipher =
+    let ciphertext =
         File.ReadAllLines path
         |> Array.reduce (+)
         |> Data.fromB64
-    let keySize = (bestKeySizes cipher).[0]
+    let keySize = (bestKeySizes ciphertext).[0]
     printfn "Key Size chosen: %A" keySize
     let key =
-        partitionAndTranspose cipher keySize
+        partitionAndTranspose ciphertext keySize
         |> Array.choose tryBestKey
         |> Array.map (fun (k, _, _) -> k)
         |> Data.asString
     printfn "Key found: %A" key
-    Encryption.repeatingKeyXor cipher key |> Data.asString |> printfn "Decrypted Text:\n\n%s"
+    Encryption.repeatingKeyXor ciphertext key |> Data.asString |> printfn "Decrypted Text:\n\n%s"
 
 let ch7 () =
     let path = __SOURCE_DIRECTORY__ + "/data/ch7.txt"
-    let cipher = File.ReadAllLines path |> Array.reduce (+) |> Data.fromB64
+    let ciphertext = File.ReadAllLines path |> Array.reduce (+) |> Data.fromB64
     let key = "YELLOW SUBMARINE" |> Data.fromString
-    let plain = Aes.decryptECB cipher key
+    let plain = Aes.decryptECB ciphertext key
     printfn "Decrypted text:\n\n%s" (Data.asString plain)
 
 let ch8 () =
     let path = __SOURCE_DIRECTORY__ + "/data/ch8.txt"
-    let ciphers = File.ReadAllLines path |> Array.map Data.fromHex
+    let ciphertexts = File.ReadAllLines path |> Array.map Data.fromHex
     let maybeRepeatingBlock =
-        ciphers
+        ciphertexts
         |> Array.tryFindIndex
             ( (Array.chunkBySize 16) >> (fun c -> Array.length (Array.distinct c) <> c.Length) )
     match maybeRepeatingBlock with
@@ -84,10 +85,10 @@ let ch9 () =
 
 let ch10 () =
     let path = __SOURCE_DIRECTORY__ + "/data/ch10.txt"
-    let cipher = File.ReadAllLines path |> Array.reduce (+) |> Data.fromB64
+    let ciphertext = File.ReadAllLines path |> Array.reduce (+) |> Data.fromB64
     let key = Data.fromString "YELLOW SUBMARINE"
     let iv = Array.create 16 0uy
-    let dec = Aes.decryptCBC key iv cipher
+    let dec = Aes.decryptCBC key iv ciphertext
     printfn "Decrypted:\n\n%s" (Data.asString dec)
 
 let ch11 () =
@@ -109,9 +110,9 @@ let ch12 () =
 
 let ch13 () =
     let data = "XXXXXX@XX.admin" + (Data.asString (Array.create 11 11uy)) + "XXX"
-    let cipher = Server.profileFor data
-    let blocks = Array.chunkBySize 16 cipher
-    Data.asHex cipher |> printfn "%A"
+    let ciphertext = Server.profileFor data
+    let blocks = Array.chunkBySize 16 ciphertext
+    Data.asHex ciphertext |> printfn "%A"
     let forged = [|blocks.[0]; blocks.[3]; blocks.[2]; blocks.[1]|] |> Array.concat
     let userObject = Server.parseProfile forged
     printfn "forged user has role:\n\n%A" userObject.["role"]
@@ -137,11 +138,11 @@ let ch15 () =
 
 let ch16 () =
     let injectString = "XXXXXXXXXXXXXXXX:admin<true"
-    let cipher = Server.encryptUserData injectString
-    Server.checkAdmin cipher |> printfn "admin: %A"
-    cipher.[32] <- cipher.[32] ^^^ 1uy
-    cipher.[38] <- cipher.[38] ^^^ 1uy
-    Server.checkAdmin cipher |> printfn "admin: %A"
+    let ciphertext = Server.encryptUserData injectString
+    Server.checkAdmin ciphertext |> printfn "admin: %A"
+    ciphertext.[32] <- ciphertext.[32] ^^^ 1uy
+    ciphertext.[38] <- ciphertext.[38] ^^^ 1uy
+    Server.checkAdmin ciphertext |> printfn "admin: %A"
 
 
 (****  SET 3  ****)
@@ -153,28 +154,28 @@ let ch17 () =
     plain |> Data.removePadding |> Data.asString |> printfn "%s"
 
 let ch18 () =
-    let cipher = Data.fromB64 "L77na/nrFsKvynd6HzOoG7GHTLXsTVu9qvY/2syLXzhPweyyMTJULu/6/kXX0KSvoOLSFQ=="
+    let ciphertext = Data.fromB64 "L77na/nrFsKvynd6HzOoG7GHTLXsTVu9qvY/2syLXzhPweyyMTJULu/6/kXX0KSvoOLSFQ=="
     let key = Data.fromString "YELLOW SUBMARINE"
     let nonce = Data.fromInt 0 |> Array.append (Array.create 4 0uy)
-    let plain = Aes.CTR key nonce cipher
+    let plain = Aes.CTR key nonce ciphertext
     printfn "%s" (plain |> Data.asString)
 
 let ch19 () =
     let path = __SOURCE_DIRECTORY__ + "/data/ch19.txt"
     let key = Data.fromString "YELLOW SUBMARINE"
     let nonce = Data.fromInt 6138071 |> Array.append (Array.create 4 0uy)
-    let ciphers =
+    let ciphertexts =
         File.ReadAllLines path
         |> Array.map (Data.fromB64 >> (Aes.CTR key nonce))
-    let maxLength = Array.maxBy (fun (arr: byte[]) -> arr.Length) ciphers |> Array.length
+    let maxLength = Array.maxBy (fun (arr: byte[]) -> arr.Length) ciphertexts |> Array.length
     let groupedBytes = [
         for i = 0 to (maxLength - 1) do
-            yield Array.choose (fun (cipher: byte[]) ->
-                if cipher.Length > i then
-                    Some (cipher.[i])
+            yield Array.choose (fun (ciphertext: byte[]) ->
+                if ciphertext.Length > i then
+                    Some (ciphertext.[i])
                 else
                     None
-            ) ciphers
+            ) ciphertexts
     ]
     let mutable key =
         groupedBytes
@@ -182,8 +183,8 @@ let ch19 () =
         |> List.map (fun (k, _, _) -> k)
         |> Array.ofList
     let testKey () =
-        ciphers
-        |> Array.map ((fun cipher -> Data.xor cipher key)
+        ciphertexts
+        |> Array.map ((fun ciphertext -> Data.xor ciphertext key)
             >> Data.asString
             >> printfn "%s"
         ) |> ignore
@@ -201,26 +202,26 @@ let ch20 () =
     let path = __SOURCE_DIRECTORY__ + "/data/ch20.txt"
     let key = Data.fromString "YELLOW SUBMARINE"
     let nonce = Data.fromInt 518071 |> Array.append (Array.create 4 0uy)
-    let ciphers =
+    let ciphertexts =
         File.ReadAllLines path
         |> Array.map (Data.fromB64 >> (Aes.CTR key nonce))
-    let maxLength = Array.maxBy (fun (arr: byte[]) -> arr.Length) ciphers |> Array.length
+    let maxLength = Array.maxBy (fun (arr: byte[]) -> arr.Length) ciphertexts |> Array.length
     let groupedBytes = [
         for i = 0 to (maxLength - 1) do
-            yield Array.choose (fun (cipher: byte[]) ->
-                if cipher.Length > i then
-                    Some (cipher.[i])
+            yield Array.choose (fun (ciphertext: byte[]) ->
+                if ciphertext.Length > i then
+                    Some (ciphertext.[i])
                 else
                     None
-            ) ciphers
+            ) ciphertexts
     ]
     let key =
         groupedBytes
         |> List.choose tryBestKey
         |> List.map (fun (k, _, _) -> k)
         |> Array.ofList
-    ciphers
-    |> Array.map ((fun cipher -> Data.xor cipher key)
+    ciphertexts
+    |> Array.map ((fun ciphertext -> Data.xor ciphertext key)
         >> Data.asString
         >> printfn "%s"
     ) |> ignore
@@ -284,9 +285,9 @@ let ch23 () =
 let ch24 () =
     let astring = "AAAAAAAAAAAAAA" |> Data.fromString
     let seed = uint16 (unixTimestamp ())
-    let cipher = Encryption.mt19937Prepend seed astring
-    let noPrep = cipher.[(cipher.Length-14)..]
-    let prepSize = cipher.Length-14
+    let ciphertext = Encryption.mt19937Prepend seed astring
+    let noPrep = ciphertext.[(ciphertext.Length-14)..]
+    let prepSize = ciphertext.Length-14
     let foundSeed =
         [ for i = 0 to (pown 2 16)-1 do yield uint16 i ]
         |> List.find (fun s ->
@@ -309,6 +310,35 @@ let ch24 () =
     | Some s -> printfn "is time seeded with seed %A" (ts-s)
     | None -> printfn "not time seeded"
 
+let ch25 () =
+    let path = __SOURCE_DIRECTORY__ + "/data/ch25.txt"
+    let ct = File.ReadAllLines path |> Array.reduce (+) |> Data.fromB64
+    let key = Data.fromString "YELLOW SUBMARINE"
+    let plain = Aes.decryptECB ct key |> Data.tryRemovePadding
+    let unknownKey = Data.randomBytes 16
+    let nonce = Data.randomBytes 8
+    let ciphertext = Aes.CTR unknownKey nonce plain
+    let foundPlain =
+        Array.mapi (fun i _ ->
+            Array.concat [|
+                [| for i = 96uy to 127uy do yield i |];
+                [| for i = 64uy to 95uy do yield i |];
+                [| 8uy; 9uy; 10uy |];
+                [| for i = 32uy to 63uy do yield i |] |]
+            |> Array.tryFind (fun testByte ->
+                let newCiphertext = Aes.editCTR unknownKey nonce ciphertext [| testByte |] i
+                newCiphertext = ciphertext
+            )
+        ) ciphertext
+        |>  Array.map (fun opt ->
+                match opt with
+                | Some l -> l
+                | None -> 63uy // '?'
+            )
+        |> Data.asString
+    printfn "found plaintext:\n\n%s" foundPlain
+
+
 
 [<EntryPoint>]
 let main argv =
@@ -316,7 +346,8 @@ let main argv =
         [|
             ch1; ch2; ch3; ch4; ch5; ch6; ch7; ch8;  // SET 1
             ch9; ch10; ch11; ch12; ch13; ch14; ch15; ch16;  // SET 2
-            ch17; ch18; ch19; ch20; ch21; ch22; ch23; ch24; // SET 3
+            ch17; ch18; ch19; ch20; ch21; ch22; ch23; ch24;  // SET 3
+            ch25;  // SET 4
         |]
     if argv.Length > 0 then
         let challenge: (unit -> unit) = challenges.[(int argv.[0])-1]

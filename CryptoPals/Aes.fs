@@ -39,9 +39,9 @@ let encryptECB (plain: byte[]) (key: byte[]): byte[] =
             yield! encrypt (block) key
     |]
 
-let decryptECB (cipher: byte[]) (key: byte[]): byte[] =
+let decryptECB (ciphertext: byte[]) (key: byte[]): byte[] =
     [|
-        for block in cipher |> Array.chunkBySize blockSize do
+        for block in ciphertext |> Array.chunkBySize blockSize do
             yield! decrypt (block) key
     |]
 
@@ -54,14 +54,14 @@ let encryptCBC (key: byte[]) (iv: byte[]) (plain: byte[]): byte[] =
             yield! last
     |]
 
-let decryptCBC (key: byte[]) (iv: byte[]) (cipher: byte[]): byte[] =
+let decryptCBC (key: byte[]) (iv: byte[]) (ciphertext: byte[]): byte[] =
     [|
-        let blocks = Array.chunkBySize blockSize cipher
+        let blocks = Array.chunkBySize blockSize ciphertext
         for (i, block) in (Array.indexed blocks) do
-            let lastCipher =
+            let lastCipherT =
                 if i = 0 then iv
                 else blocks.[i-1]
-            yield! Data.xor (decrypt (block) key) lastCipher
+            yield! Data.xor (decrypt (block) key) lastCipherT
     |]
 
 let CTR (key: byte[]) (nonce: byte[]) (plain: byte[]): byte[] =
@@ -73,3 +73,18 @@ let CTR (key: byte[]) (nonce: byte[]) (plain: byte[]): byte[] =
             Data.xor encryptedC block
         )
     |> Array.concat
+
+let editCTR (key: byte[]) (nonce: byte[]) (ciphertext: byte[]) (newPlain: byte[]) offset =
+    let zeroes = Array.create (blockSize - nonce.Length - 4) 0uy
+    let blocks = Array.chunkBySize blockSize ciphertext
+    let startBlock = (offset)/blockSize
+    let encryptedCounters = [|
+        for i = startBlock to ((offset+newPlain.Length)/blockSize) do
+            let counter = Array.concat [| nonce; (Data.fromInt i); zeroes |]
+            yield encrypt counter key
+    |]
+    Array.iteri (fun i b ->
+        let encryptedC = encryptedCounters.[((offset+i)/blockSize)-startBlock]
+        blocks.[(offset+i)/blockSize].[(offset+i)%blockSize] <- encryptedC.[(offset+i)%blockSize] ^^^ b
+    ) newPlain
+    Array.concat blocks

@@ -120,6 +120,7 @@ let partitionAndTranspose (data) (ks: int) =
                 |> Array.map (fun (_, b) -> b)
     |]
 
+
 let byteAtATime (encrypt: byte[] -> byte[]): byte[] =
     // Recovers append string from function that ECB appends then ECB encrypts
     // 1. Find block size
@@ -163,6 +164,7 @@ let byteAtATime (encrypt: byte[] -> byte[]): byte[] =
     // 5. Profit
     append
 
+
 let paddingOracleAttack (oracle: (byte[] * byte[]) -> bool) (iv: byte[], cipher: byte[]) =
     let blockSize = Array.length iv
     let blocks = Array.chunkBySize blockSize cipher
@@ -194,6 +196,7 @@ let paddingOracleAttack (oracle: (byte[] * byte[]) -> bool) (iv: byte[], cipher:
     // Separate in groups of two blocks (tuples)
     let tuples = Array.scan ( fun (_, last) block -> (last, block) ) (iv, blocks.[0]) blocks.[1..]
     Array.collect breakBlock tuples
+
 
 let mt19937Untamper (n: uint32) =
     let mutable z = n
