@@ -281,6 +281,34 @@ let ch23 () =
         rng.RandInt() |> abs |> printfn "original: %A"
         clone.RandInt() |> abs |> printfn "clone: %A"
 
+let ch24 () =
+    let astring = "AAAAAAAAAAAAAA" |> Data.fromString
+    let seed = uint16 (unixTimestamp ())
+    let cipher = Encryption.mt19937Prepend seed astring
+    let noPrep = cipher.[(cipher.Length-14)..]
+    let prepSize = cipher.Length-14
+    let foundSeed =
+        [ for i = 0 to (pown 2 16)-1 do yield uint16 i ]
+        |> List.find (fun s ->
+            let m = Array.append (Array.create prepSize 0uy) astring
+            let t = Encryption.mt19937Cipher (int s) m
+            let np = t.[(t.Length-14)..]
+            np = noPrep
+        )
+    printfn "found seed: %A" foundSeed
+    let timeseeded = Encryption.mt19937Cipher (unixTimestamp ()) astring
+    let ts = unixTimestamp ()
+    let maybeSeed =
+        [ for i = 0 to (pown 2 16)-1 do yield i ]
+        |> List.tryFind (fun i ->
+            let ts2 = ts - i
+            let t = Encryption.mt19937Cipher ts2 astring
+            t = timeseeded
+        )
+    match maybeSeed with
+    | Some s -> printfn "is time seeded with seed %A" (ts-s)
+    | None -> printfn "not time seeded"
+
 
 [<EntryPoint>]
 let main argv =
@@ -288,8 +316,12 @@ let main argv =
         [|
             ch1; ch2; ch3; ch4; ch5; ch6; ch7; ch8;  // SET 1
             ch9; ch10; ch11; ch12; ch13; ch14; ch15; ch16;  // SET 2
-            ch17; ch18; ch19; ch20; ch21; ch22; ch23;  // SET 3
+            ch17; ch18; ch19; ch20; ch21; ch22; ch23; ch24; // SET 3
         |]
-    let challenge: (unit -> unit) = challenges.[(int argv.[0])-1]
-    challenge ()
+    if argv.Length > 0 then
+        let challenge: (unit -> unit) = challenges.[(int argv.[0])-1]
+        challenge ()
+    else
+        let challenge: (unit -> unit) = challenges.[challenges.Length-1]
+        challenge ()
     0 // return an integer exit code

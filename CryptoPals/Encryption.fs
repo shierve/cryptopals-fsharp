@@ -59,8 +59,16 @@ let paddingOracle (iv: byte[], cipher: byte[]): bool =
     with
     | Data.PaddingException -> false
 
-let mt19937Cipher (data: byte[]) (seed: int): byte[] =
+let mt19937Cipher (seed: int) (data: byte[]): byte[] =
     let rng = MT19937()
     rng.Seed seed
     data
     |> Array.map (fun b -> b ^^^ (byte (rng.RandInt32())) )
+
+let mt19937Prepend (seed: uint16) (data: byte[]): byte[] =
+    let rnd = System.Random()
+    let prependSize = rnd.Next(5, 11)
+    let prepend = Array.create prependSize 0uy
+    rnd.NextBytes(prepend)
+    let prepended = Array.append prepend data
+    mt19937Cipher (int seed) prepended
