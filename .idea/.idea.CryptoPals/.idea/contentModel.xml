@@ -11,6 +11,7 @@
         <e p="CryptoPals.fsproj" t="IncludeRecursive" />
         <e p="Data.fs" t="Include" />
         <e p="Encryption.fs" t="Include" />
+        <e p="Hash.fs" t="Include" />
         <e p="MockServer.fs" t="Include" />
         <e p="Program.fs" t="Include" />
         <e p="RNG.fs" t="Include" />

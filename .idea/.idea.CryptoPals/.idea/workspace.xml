@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="100cccf8-71b1-42f2-9e24-ff9f90b9172a" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/CryptoPals/RNG.fs" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/CryptoPals/Hash.fs" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.CryptoPals/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/.idea.CryptoPals/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/CryptoPals/CryptoPals.fsproj" afterPath="$PROJECT_DIR$/CryptoPals/CryptoPals.fsproj" />
     </list>
@@ -61,39 +61,70 @@
             <state relative-caret-position="0">
               <caret line="0" column="17" lean-forward="false" selection-start-line="0" selection-start-column="17" selection-end-line="0" selection-end-column="17" />
               <folding>
-                <marker date="1515935153000" expanded="true" signature="17:2484" ph=" ..." />
-                <marker date="1515935153000" expanded="false" signature="24:64" ph="..." />
-                <marker date="1515935153000" expanded="true" signature="118:574" ph=" = ..." />
-                <marker date="1515935153000" expanded="true" signature="155:574" ph=" ..." />
-                <marker date="1515935153000" expanded="true" signature="607:1063" ph=" = ..." />
-                <marker date="1515935153000" expanded="true" signature="644:1063" ph=" ..." />
-                <marker date="1515935153000" expanded="true" signature="1109:1276" ph=": byte[] = ..." />
-                <marker date="1515935153000" expanded="true" signature="1168:1274" ph=" ..." />
-                <marker date="1515935153000" expanded="true" signature="1177:1269" ph="for block in padded |&gt; Array.chunkBySize blockSize do ..." />
-                <marker date="1515935153000" expanded="true" signature="1323:1448" ph=": byte[] = ..." />
-                <marker date="1515935153000" expanded="true" signature="1340:1446" ph=" ..." />
-                <marker date="1515935153000" expanded="true" signature="1349:1441" ph="for block in cipher |&gt; Array.chunkBySize blockSize do ..." />
-                <marker date="1515935153000" expanded="true" signature="1507:1739" ph=": byte[] = ..." />
-                <marker date="1515935153000" expanded="true" signature="1592:1737" ph=" ..." />
-                <marker date="1515935153000" expanded="true" signature="1601:1732" ph="for block in padded |&gt; Array.chunkBySize blockSize do ..." />
-                <marker date="1515935153000" expanded="true" signature="1799:2088" ph=": byte[] = ..." />
-                <marker date="1515935153000" expanded="true" signature="1816:2086" ph=" ..." />
-                <marker date="1515935153000" expanded="true" signature="1881:2081" ph="for (i, block) in (Array.indexed blocks) do ..." />
-                <marker date="1515935153000" expanded="true" signature="1951:2020" ph=" = ..." />
-                <marker date="1515935153000" expanded="true" signature="1978:2020" ph=" then iv ..." />
-                <marker date="1515935153000" expanded="true" signature="2143:2484" ph=": byte[] = ..." />
-                <marker date="1515935153000" expanded="true" signature="2281:2454" ph=" block -&gt; ..." />
+                <marker date="1516301309903" expanded="false" signature="24:64" ph="..." />
+                <marker date="1516301309903" expanded="true" signature="118:574" ph=" = ..." />
+                <marker date="1516301309903" expanded="true" signature="155:574" ph=" ..." />
+                <marker date="1516301309903" expanded="true" signature="607:1063" ph=" = ..." />
+                <marker date="1516301309903" expanded="true" signature="644:1063" ph=" ..." />
+                <marker date="1516301309903" expanded="true" signature="1109:1142" ph=": byte[] = ..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RNG.fs" pinned="false" current-in-tab="true">
+      <file leaf-file-name="RNG.fs" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/CryptoPals/RNG.fs">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding>
+                <marker date="1516111531592" expanded="true" signature="17:1303" ph=" ..." />
+                <marker date="1516111531592" expanded="true" signature="128:1303" ph=") = ..." />
+                <marker date="1516111531592" expanded="true" signature="219:445" ph=" = ..." />
+                <marker date="1516111531592" expanded="true" signature="290:422" ph="for i = 1 to n-1 do ..." />
+                <marker date="1516111531592" expanded="true" signature="577:842" ph=" = ..." />
+                <marker date="1516111531592" expanded="true" signature="588:842" ph="for i = 0 to n-1 do ..." />
+                <marker date="1516111531592" expanded="true" signature="872:1249" ph=" = ..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Hash.fs" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CryptoPals/Hash.fs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MockServer.fs" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/CryptoPals/MockServer.fs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="216">
+              <caret line="13" column="75" lean-forward="true" selection-start-line="13" selection-start-column="75" selection-end-line="13" selection-end-column="75" />
+              <folding>
+                <marker date="1516303537962" expanded="true" signature="20:2280" ph=" ..." />
+                <marker date="1516303537962" expanded="false" signature="27:45" ph="..." />
+                <marker date="1516303537962" expanded="true" signature="60:86" ph=" = ..." />
+                <marker date="1516303537962" expanded="true" signature="99:125" ph=" = ..." />
+                <marker date="1516303537962" expanded="true" signature="141:166" ph=" = ..." />
+                <marker date="1516303537962" expanded="true" signature="198:376" ph=": byte[] = ..." />
+                <marker date="1516303537962" expanded="true" signature="421:719" ph=": Map&lt;string, string&gt; = ..." />
+                <marker date="1516303537962" expanded="true" signature="557:697" ph=" = ..." />
+                <marker date="1516303537962" expanded="true" signature="758:995" ph=" = ..." />
+                <marker date="1516303537962" expanded="true" signature="1028:1205" ph=" = ..." />
+                <marker date="1516303537962" expanded="true" signature="1049:1166" ph=" = ..." />
+                <marker date="1516303537962" expanded="true" signature="1247:1480" ph=" = ..." />
+                <marker date="1516303537962" expanded="true" signature="1516:1689" ph=" = ..." />
+                <marker date="1516303537962" expanded="true" signature="1537:1650" ph=" = ..." />
+                <marker date="1516303537962" expanded="true" signature="1733:1971" ph=" = ..." />
+                <marker date="1516303537962" expanded="true" signature="2057:2280" ph=" = ..." />
+                <marker date="1516303537962" expanded="true" signature="2073:2162" ph=" = ..." />
+                <marker date="1516303537962" expanded="true" signature="2209:2280" ph=" then ..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -107,7 +138,9 @@
     <setting file="file://$PROJECT_DIR$/CryptoPals/Aes.fs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/CryptoPals/Analysis.fs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/CryptoPals/Data.fs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/CryptoPals/MockServer.fs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/CryptoPals/Encryption.fs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/CryptoPals/Hash.fs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/CryptoPals/Program.fs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/CryptoPals/RNG.fs" root0="FORCE_HIGHLIGHTING" />
   </component>
@@ -224,11 +257,12 @@
       <workItem from="1514206028538" duration="63000" />
       <workItem from="1514313086986" duration="58000" />
       <workItem from="1516056607621" duration="36000" />
+      <workItem from="1516304059696" duration="98000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2570000" />
+    <option name="totallyTimeSpent" value="2668000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -240,7 +274,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="-37" width="1920" height="1117" extended-state="6" />
+    <frame x="0" y="-10" width="1920" height="1117" extended-state="6" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Errors In Solution" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -250,8 +284,8 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="NuGet" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2056624" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20779915" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -277,6 +311,69 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/CryptoPals/Program.fs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CryptoPals/Data.fs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CryptoPals/Analysis.fs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="22" lean-forward="false" selection-start-line="0" selection-start-column="22" selection-end-line="0" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CryptoPals/Encryption.fs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="24" lean-forward="false" selection-start-line="0" selection-start-column="24" selection-end-line="0" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CryptoPals/Aes.fs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="17" lean-forward="false" selection-start-line="0" selection-start-column="17" selection-end-line="0" selection-end-column="17" />
+          <folding>
+            <marker date="1516301309903" expanded="false" signature="24:64" ph="..." />
+            <marker date="1516301309903" expanded="true" signature="118:574" ph=" = ..." />
+            <marker date="1516301309903" expanded="true" signature="155:574" ph=" ..." />
+            <marker date="1516301309903" expanded="true" signature="607:1063" ph=" = ..." />
+            <marker date="1516301309903" expanded="true" signature="644:1063" ph=" ..." />
+            <marker date="1516301309903" expanded="true" signature="1109:1142" ph=": byte[] = ..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CryptoPals/RNG.fs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1516111531592" expanded="true" signature="17:1303" ph=" ..." />
+            <marker date="1516111531592" expanded="true" signature="128:1303" ph=") = ..." />
+            <marker date="1516111531592" expanded="true" signature="219:445" ph=" = ..." />
+            <marker date="1516111531592" expanded="true" signature="290:422" ph="for i = 1 to n-1 do ..." />
+            <marker date="1516111531592" expanded="true" signature="577:842" ph=" = ..." />
+            <marker date="1516111531592" expanded="true" signature="588:842" ph="for i = 0 to n-1 do ..." />
+            <marker date="1516111531592" expanded="true" signature="872:1249" ph=" = ..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/CryptoPals/Program.fs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="144">
@@ -314,28 +411,12 @@
         <state relative-caret-position="0">
           <caret line="0" column="17" lean-forward="false" selection-start-line="0" selection-start-column="17" selection-end-line="0" selection-end-column="17" />
           <folding>
-            <marker date="1515935153000" expanded="true" signature="17:2484" ph=" ..." />
-            <marker date="1515935153000" expanded="false" signature="24:64" ph="..." />
-            <marker date="1515935153000" expanded="true" signature="118:574" ph=" = ..." />
-            <marker date="1515935153000" expanded="true" signature="155:574" ph=" ..." />
-            <marker date="1515935153000" expanded="true" signature="607:1063" ph=" = ..." />
-            <marker date="1515935153000" expanded="true" signature="644:1063" ph=" ..." />
-            <marker date="1515935153000" expanded="true" signature="1109:1276" ph=": byte[] = ..." />
-            <marker date="1515935153000" expanded="true" signature="1168:1274" ph=" ..." />
-            <marker date="1515935153000" expanded="true" signature="1177:1269" ph="for block in padded |&gt; Array.chunkBySize blockSize do ..." />
-            <marker date="1515935153000" expanded="true" signature="1323:1448" ph=": byte[] = ..." />
-            <marker date="1515935153000" expanded="true" signature="1340:1446" ph=" ..." />
-            <marker date="1515935153000" expanded="true" signature="1349:1441" ph="for block in cipher |&gt; Array.chunkBySize blockSize do ..." />
-            <marker date="1515935153000" expanded="true" signature="1507:1739" ph=": byte[] = ..." />
-            <marker date="1515935153000" expanded="true" signature="1592:1737" ph=" ..." />
-            <marker date="1515935153000" expanded="true" signature="1601:1732" ph="for block in padded |&gt; Array.chunkBySize blockSize do ..." />
-            <marker date="1515935153000" expanded="true" signature="1799:2088" ph=": byte[] = ..." />
-            <marker date="1515935153000" expanded="true" signature="1816:2086" ph=" ..." />
-            <marker date="1515935153000" expanded="true" signature="1881:2081" ph="for (i, block) in (Array.indexed blocks) do ..." />
-            <marker date="1515935153000" expanded="true" signature="1951:2020" ph=" = ..." />
-            <marker date="1515935153000" expanded="true" signature="1978:2020" ph=" then iv ..." />
-            <marker date="1515935153000" expanded="true" signature="2143:2484" ph=": byte[] = ..." />
-            <marker date="1515935153000" expanded="true" signature="2281:2454" ph=" block -&gt; ..." />
+            <marker date="1516301309903" expanded="false" signature="24:64" ph="..." />
+            <marker date="1516301309903" expanded="true" signature="118:574" ph=" = ..." />
+            <marker date="1516301309903" expanded="true" signature="155:574" ph=" ..." />
+            <marker date="1516301309903" expanded="true" signature="607:1063" ph=" = ..." />
+            <marker date="1516301309903" expanded="true" signature="644:1063" ph=" ..." />
+            <marker date="1516301309903" expanded="true" signature="1109:1142" ph=": byte[] = ..." />
           </folding>
         </state>
       </provider>
@@ -377,28 +458,12 @@
         <state relative-caret-position="0">
           <caret line="0" column="17" lean-forward="false" selection-start-line="0" selection-start-column="17" selection-end-line="0" selection-end-column="17" />
           <folding>
-            <marker date="1515935153000" expanded="true" signature="17:2484" ph=" ..." />
-            <marker date="1515935153000" expanded="false" signature="24:64" ph="..." />
-            <marker date="1515935153000" expanded="true" signature="118:574" ph=" = ..." />
-            <marker date="1515935153000" expanded="true" signature="155:574" ph=" ..." />
-            <marker date="1515935153000" expanded="true" signature="607:1063" ph=" = ..." />
-            <marker date="1515935153000" expanded="true" signature="644:1063" ph=" ..." />
-            <marker date="1515935153000" expanded="true" signature="1109:1276" ph=": byte[] = ..." />
-            <marker date="1515935153000" expanded="true" signature="1168:1274" ph=" ..." />
-            <marker date="1515935153000" expanded="true" signature="1177:1269" ph="for block in padded |&gt; Array.chunkBySize blockSize do ..." />
-            <marker date="1515935153000" expanded="true" signature="1323:1448" ph=": byte[] = ..." />
-            <marker date="1515935153000" expanded="true" signature="1340:1446" ph=" ..." />
-            <marker date="1515935153000" expanded="true" signature="1349:1441" ph="for block in cipher |&gt; Array.chunkBySize blockSize do ..." />
-            <marker date="1515935153000" expanded="true" signature="1507:1739" ph=": byte[] = ..." />
-            <marker date="1515935153000" expanded="true" signature="1592:1737" ph=" ..." />
-            <marker date="1515935153000" expanded="true" signature="1601:1732" ph="for block in padded |&gt; Array.chunkBySize blockSize do ..." />
-            <marker date="1515935153000" expanded="true" signature="1799:2088" ph=": byte[] = ..." />
-            <marker date="1515935153000" expanded="true" signature="1816:2086" ph=" ..." />
-            <marker date="1515935153000" expanded="true" signature="1881:2081" ph="for (i, block) in (Array.indexed blocks) do ..." />
-            <marker date="1515935153000" expanded="true" signature="1951:2020" ph=" = ..." />
-            <marker date="1515935153000" expanded="true" signature="1978:2020" ph=" then iv ..." />
-            <marker date="1515935153000" expanded="true" signature="2143:2484" ph=": byte[] = ..." />
-            <marker date="1515935153000" expanded="true" signature="2281:2454" ph=" block -&gt; ..." />
+            <marker date="1516301309903" expanded="false" signature="24:64" ph="..." />
+            <marker date="1516301309903" expanded="true" signature="118:574" ph=" = ..." />
+            <marker date="1516301309903" expanded="true" signature="155:574" ph=" ..." />
+            <marker date="1516301309903" expanded="true" signature="607:1063" ph=" = ..." />
+            <marker date="1516301309903" expanded="true" signature="644:1063" ph=" ..." />
+            <marker date="1516301309903" expanded="true" signature="1109:1142" ph=": byte[] = ..." />
           </folding>
         </state>
       </provider>
@@ -549,28 +614,12 @@
         <state relative-caret-position="0">
           <caret line="0" column="17" lean-forward="false" selection-start-line="0" selection-start-column="17" selection-end-line="0" selection-end-column="17" />
           <folding>
-            <marker date="1515935153000" expanded="true" signature="17:2484" ph=" ..." />
-            <marker date="1515935153000" expanded="false" signature="24:64" ph="..." />
-            <marker date="1515935153000" expanded="true" signature="118:574" ph=" = ..." />
-            <marker date="1515935153000" expanded="true" signature="155:574" ph=" ..." />
-            <marker date="1515935153000" expanded="true" signature="607:1063" ph=" = ..." />
-            <marker date="1515935153000" expanded="true" signature="644:1063" ph=" ..." />
-            <marker date="1515935153000" expanded="true" signature="1109:1276" ph=": byte[] = ..." />
-            <marker date="1515935153000" expanded="true" signature="1168:1274" ph=" ..." />
-            <marker date="1515935153000" expanded="true" signature="1177:1269" ph="for block in padded |&gt; Array.chunkBySize blockSize do ..." />
-            <marker date="1515935153000" expanded="true" signature="1323:1448" ph=": byte[] = ..." />
-            <marker date="1515935153000" expanded="true" signature="1340:1446" ph=" ..." />
-            <marker date="1515935153000" expanded="true" signature="1349:1441" ph="for block in cipher |&gt; Array.chunkBySize blockSize do ..." />
-            <marker date="1515935153000" expanded="true" signature="1507:1739" ph=": byte[] = ..." />
-            <marker date="1515935153000" expanded="true" signature="1592:1737" ph=" ..." />
-            <marker date="1515935153000" expanded="true" signature="1601:1732" ph="for block in padded |&gt; Array.chunkBySize blockSize do ..." />
-            <marker date="1515935153000" expanded="true" signature="1799:2088" ph=": byte[] = ..." />
-            <marker date="1515935153000" expanded="true" signature="1816:2086" ph=" ..." />
-            <marker date="1515935153000" expanded="true" signature="1881:2081" ph="for (i, block) in (Array.indexed blocks) do ..." />
-            <marker date="1515935153000" expanded="true" signature="1951:2020" ph=" = ..." />
-            <marker date="1515935153000" expanded="true" signature="1978:2020" ph=" then iv ..." />
-            <marker date="1515935153000" expanded="true" signature="2143:2484" ph=": byte[] = ..." />
-            <marker date="1515935153000" expanded="true" signature="2281:2454" ph=" block -&gt; ..." />
+            <marker date="1516301309903" expanded="false" signature="24:64" ph="..." />
+            <marker date="1516301309903" expanded="true" signature="118:574" ph=" = ..." />
+            <marker date="1516301309903" expanded="true" signature="155:574" ph=" ..." />
+            <marker date="1516301309903" expanded="true" signature="607:1063" ph=" = ..." />
+            <marker date="1516301309903" expanded="true" signature="644:1063" ph=" ..." />
+            <marker date="1516301309903" expanded="true" signature="1109:1142" ph=": byte[] = ..." />
           </folding>
         </state>
       </provider>
@@ -579,7 +628,50 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1516111531592" expanded="true" signature="17:1303" ph=" ..." />
+            <marker date="1516111531592" expanded="true" signature="128:1303" ph=") = ..." />
+            <marker date="1516111531592" expanded="true" signature="219:445" ph=" = ..." />
+            <marker date="1516111531592" expanded="true" signature="290:422" ph="for i = 1 to n-1 do ..." />
+            <marker date="1516111531592" expanded="true" signature="577:842" ph=" = ..." />
+            <marker date="1516111531592" expanded="true" signature="588:842" ph="for i = 0 to n-1 do ..." />
+            <marker date="1516111531592" expanded="true" signature="872:1249" ph=" = ..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CryptoPals/Hash.fs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CryptoPals/MockServer.fs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="13" column="75" lean-forward="true" selection-start-line="13" selection-start-column="75" selection-end-line="13" selection-end-column="75" />
+          <folding>
+            <marker date="1516303537962" expanded="true" signature="20:2280" ph=" ..." />
+            <marker date="1516303537962" expanded="false" signature="27:45" ph="..." />
+            <marker date="1516303537962" expanded="true" signature="60:86" ph=" = ..." />
+            <marker date="1516303537962" expanded="true" signature="99:125" ph=" = ..." />
+            <marker date="1516303537962" expanded="true" signature="141:166" ph=" = ..." />
+            <marker date="1516303537962" expanded="true" signature="198:376" ph=": byte[] = ..." />
+            <marker date="1516303537962" expanded="true" signature="421:719" ph=": Map&lt;string, string&gt; = ..." />
+            <marker date="1516303537962" expanded="true" signature="557:697" ph=" = ..." />
+            <marker date="1516303537962" expanded="true" signature="758:995" ph=" = ..." />
+            <marker date="1516303537962" expanded="true" signature="1028:1205" ph=" = ..." />
+            <marker date="1516303537962" expanded="true" signature="1049:1166" ph=" = ..." />
+            <marker date="1516303537962" expanded="true" signature="1247:1480" ph=" = ..." />
+            <marker date="1516303537962" expanded="true" signature="1516:1689" ph=" = ..." />
+            <marker date="1516303537962" expanded="true" signature="1537:1650" ph=" = ..." />
+            <marker date="1516303537962" expanded="true" signature="1733:1971" ph=" = ..." />
+            <marker date="1516303537962" expanded="true" signature="2057:2280" ph=" = ..." />
+            <marker date="1516303537962" expanded="true" signature="2073:2162" ph=" = ..." />
+            <marker date="1516303537962" expanded="true" signature="2209:2280" ph=" then ..." />
+          </folding>
         </state>
       </provider>
     </entry>

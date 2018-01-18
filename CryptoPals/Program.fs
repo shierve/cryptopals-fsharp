@@ -310,6 +310,9 @@ let ch24 () =
     | Some s -> printfn "is time seeded with seed %A" (ts-s)
     | None -> printfn "not time seeded"
 
+
+(****  SET 4  ****)
+
 let ch25 () =
     let path = __SOURCE_DIRECTORY__ + "/data/ch25.txt"
     let ct = File.ReadAllLines path |> Array.reduce (+) |> Data.fromB64
@@ -360,7 +363,12 @@ let ch27 () =
             printfn "original iv/key: %A" (Data.asHex Server.randomKey)
             printfn "found iv/key: %A" (Data.asHex foundIV)
 
-
+let ch28 () =
+    let testString = "The quick brown fox jumps over the lazy dog"
+    let hash = testString |> Data.fromString |> Hash.sha1
+    Data.asHex hash |> printfn "hex: %A"
+    Data.asB64 hash |> printfn "b64: %A"
+    ()
 
 
 [<EntryPoint>]
@@ -370,7 +378,7 @@ let main argv =
             ch1; ch2; ch3; ch4; ch5; ch6; ch7; ch8;  // SET 1
             ch9; ch10; ch11; ch12; ch13; ch14; ch15; ch16;  // SET 2
             ch17; ch18; ch19; ch20; ch21; ch22; ch23; ch24;  // SET 3
-            ch25; ch26; ch27;  // SET 4
+            ch25; ch26; ch27; ch28;  // SET 4
         |]
     if argv.Length > 0 then
         let challenge: (unit -> unit) = challenges.[(int argv.[0])-1]

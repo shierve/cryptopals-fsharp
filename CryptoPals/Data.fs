@@ -31,7 +31,7 @@ let asB64 (d: byte[]): string = Convert.ToBase64String d
 
 let asHex (d: byte[]): string =
     d
-    |> Array.map (fun (x : byte) -> String.Format("{0:X2}", x))
+    |> Array.map (fun (x : byte) -> String.Format("{0:x2}", x))
     |> String.concat String.Empty
 
 let asString (d: byte[]): string = Encoding.ASCII.GetString d
