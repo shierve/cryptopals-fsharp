@@ -33,7 +33,7 @@ let decrypt (block: byte[]) key =
         output
 
 let encryptECB (plain: byte[]) (key: byte[]): byte[] =
-    let padded = Data.pad blockSize plain
+    let padded = Data.softPad blockSize plain
     [|
         for block in padded |> Array.chunkBySize blockSize do
             yield! encrypt (block) key
@@ -46,7 +46,7 @@ let decryptECB (ciphertext: byte[]) (key: byte[]): byte[] =
     |]
 
 let encryptCBC (key: byte[]) (iv: byte[]) (plain: byte[]): byte[] =
-    let padded = Data.pad blockSize plain
+    let padded = Data.softPad blockSize plain
     let mutable last = iv
     [|
         for block in padded |> Array.chunkBySize blockSize do

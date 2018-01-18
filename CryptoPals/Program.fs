@@ -339,6 +339,29 @@ let ch25 () =
     printfn "found plaintext:\n\n%s" foundPlain
 
 
+let ch26 () =
+    let injectString = ":admin<true"
+    let ciphertext = Server.encryptUserDataCTR injectString
+    Server.checkAdminCTR ciphertext |> printfn "admin: %A"
+    ciphertext.[32] <- ciphertext.[32] ^^^ 1uy
+    ciphertext.[38] <- ciphertext.[38] ^^^ 1uy
+    Server.checkAdminCTR ciphertext |> printfn "admin: %A"
+
+let ch27 () =
+    let injectString = "XXXXXXXXXXXX"
+    let ciphertext = Server.encryptUserDataIVeqK injectString
+    let blocks = Array.chunkBySize 16 ciphertext
+    try
+        Server.validatePlainCBC (Array.concat [| blocks.[0]; (Array.create 16 0uy) ; blocks.[0] |])
+    with
+        | Server.InvalidAsciiException plain ->
+            let blocks' = plain |> Array.chunkBySize 16
+            let foundIV = Data.xor blocks'.[0] blocks'.[2]
+            printfn "original iv/key: %A" (Data.asHex Server.randomKey)
+            printfn "found iv/key: %A" (Data.asHex foundIV)
+
+
+
 
 [<EntryPoint>]
 let main argv =
@@ -347,7 +370,7 @@ let main argv =
             ch1; ch2; ch3; ch4; ch5; ch6; ch7; ch8;  // SET 1
             ch9; ch10; ch11; ch12; ch13; ch14; ch15; ch16;  // SET 2
             ch17; ch18; ch19; ch20; ch21; ch22; ch23; ch24;  // SET 3
-            ch25;  // SET 4
+            ch25; ch26; ch27;  // SET 4
         |]
     if argv.Length > 0 then
         let challenge: (unit -> unit) = challenges.[(int argv.[0])-1]

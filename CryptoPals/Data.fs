@@ -82,6 +82,10 @@ let pad size (data: byte[]): byte[] =
         let paddingLength = size - (data.Length % size)
         Array.create paddingLength (byte paddingLength) |> Array.append data
 
+let softPad size (data: byte[]): byte[] =
+    let paddingLength = size - (data.Length % size)
+    Array.create paddingLength (byte paddingLength) |> Array.append data
+
 let shiftLeft (data:byte[]) last =
     let a = Array.permute (fun i -> (data.Length+(i-1))%data.Length) data
     a.[a.Length-1] <- last
