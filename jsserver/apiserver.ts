@@ -6,6 +6,8 @@ const app = express();
 const key = "super secret key";
 const testmessage = "hello"
 
+const sleeptime = 15
+
 const hmacsha1 = (key: string, message: string) => {
     const hm = CryptoJS.HmacSHA1(message, key);
     return CryptoJS.enc.Hex.stringify(hm);
@@ -22,7 +24,7 @@ const insecurecompare = async (code1: string, code2: string) => {
         if ( code1[i-1] !== code2[i-1] || code1[i] !== code2[i] ){
             return false;
         }
-        await sleep(50);
+        await sleep(sleeptime);
     }
     return true;
 };

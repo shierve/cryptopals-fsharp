@@ -221,26 +221,19 @@ let timingLeak (baseurl: string) (file: string) =
             |> List.mapi (fun bi b ->
                 signature.[i] <- byte b
                 let url = baseurl + "?file=" + file + "&signature=" + (Data.asHex signature)
-                let stopWatch = System.Diagnostics.Stopwatch.StartNew()
-                try
-                    Utils.fetchJson url |> ignore
-                with
-                | _ -> ()
-                (*try
-                    Utils.fetchJson url |> ignore
-                with
-                | _ -> ()
-                try
-                    Utils.fetchJson url |> ignore
-                with
-                | _ -> ()*)
-                stopWatch.Stop()
-                (bi, stopWatch.Elapsed.TotalMilliseconds)
+                let start = System.DateTime.Now.Ticks
+                for _t = 0 to 3 do
+                    try
+                        Utils.fetchJson url |> ignore
+                    with
+                    | _ -> ()
+                let stop = System.DateTime.Now.Ticks
+                (bi, stop-start)
             ) 
             |> List.fold (fun (maxi, maxv) (bi, v) ->
                 if v > maxv then (bi, v)
                 else (maxi, maxv)
-            ) (-1, 0.0) |> (fun (bi, _) -> byte bi)
+            ) (-1, 0L) |> (fun (bi, _) -> byte bi)
         signature.[i] <- best
         printf "%s" (Data.asHex [| best |])
     printfn ""

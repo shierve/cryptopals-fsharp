@@ -13,6 +13,7 @@ const CryptoJS = require("crypto-js");
 const app = express();
 const key = "super secret key";
 const testmessage = "hello";
+const sleeptime = 15;
 const hmacsha1 = (key, message) => {
     const hm = CryptoJS.HmacSHA1(message, key);
     return CryptoJS.enc.Hex.stringify(hm);
@@ -27,7 +28,7 @@ const insecurecompare = (code1, code2) => __awaiter(this, void 0, void 0, functi
         if (code1[i - 1] !== code2[i - 1] || code1[i] !== code2[i]) {
             return false;
         }
-        yield sleep(50);
+        yield sleep(sleeptime);
     }
     return true;
 });

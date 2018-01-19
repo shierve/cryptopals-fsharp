@@ -2,16 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="100cccf8-71b1-42f2-9e24-ff9f90b9172a" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/CryptoPals/Utils.fs" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.CryptoPals/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/.idea.CryptoPals/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/CryptoPals/CryptoPals.fsproj" afterPath="$PROJECT_DIR$/CryptoPals/CryptoPals.fsproj" />
-      <change beforePath="$PROJECT_DIR$/CryptoPals/Encryption.fs" afterPath="$PROJECT_DIR$/CryptoPals/Encryption.fs" />
-      <change beforePath="$PROJECT_DIR$/CryptoPals/Hash.fs" afterPath="$PROJECT_DIR$/CryptoPals/Hash.fs" />
+      <change beforePath="$PROJECT_DIR$/CryptoPals/Analysis.fs" afterPath="$PROJECT_DIR$/CryptoPals/Analysis.fs" />
       <change beforePath="$PROJECT_DIR$/CryptoPals/Program.fs" afterPath="$PROJECT_DIR$/CryptoPals/Program.fs" />
+      <change beforePath="$PROJECT_DIR$/CryptoPals/Utils.fs" afterPath="$PROJECT_DIR$/CryptoPals/Utils.fs" />
       <change beforePath="$PROJECT_DIR$/CryptoPals/obj/Debug/CryptoPals.exe" afterPath="$PROJECT_DIR$/CryptoPals/obj/Debug/CryptoPals.exe" />
       <change beforePath="$PROJECT_DIR$/CryptoPals/obj/Debug/CryptoPals.exe.mdb" afterPath="$PROJECT_DIR$/CryptoPals/obj/Debug/CryptoPals.exe.mdb" />
-      <change beforePath="$PROJECT_DIR$/CryptoPals/obj/fsac.cache" afterPath="$PROJECT_DIR$/CryptoPals/obj/fsac.cache" />
-      <change beforePath="$PROJECT_DIR$/CryptoPals/packages.config" afterPath="$PROJECT_DIR$/CryptoPals/packages.config" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -25,8 +21,8 @@
       <file leaf-file-name="Program.fs" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/CryptoPals/Program.fs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+            <state relative-caret-position="198">
+              <caret line="11" column="0" lean-forward="false" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -138,7 +134,16 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
+              <folding>
+                <marker date="1516396216807" expanded="true" signature="19:918" ph=" ..." />
+                <marker date="1516396216807" expanded="false" signature="25:96" ph="..." />
+                <marker date="1516396216807" expanded="true" signature="118:274" ph=" = ..." />
+                <marker date="1516396216807" expanded="true" signature="299:487" ph=" = ..." />
+                <marker date="1516396216807" expanded="true" signature="532:557" ph=" = ..." />
+                <marker date="1516396216807" expanded="true" signature="640:918" ph=" = ..." />
+                <marker date="1516396216807" expanded="true" signature="654:917" ph=" ..." />
+                <marker date="1516396216807" expanded="true" signature="731:837" ph="// Execution of fetchHtmlAsync won't continue until the result ..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -198,6 +203,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="SolutionExplorer">
         <subPane>
           <expand>
@@ -205,18 +211,12 @@
               <item name="" type="13324e5d:SolutionExplorerViewPane$ProjectViewPaneTreeStructure$createRoot$1" />
               <item name="CryptoPals (1 project)" type="977d5f41:SolutionExplorerNodeRider" />
             </path>
-            <path>
-              <item name="" type="13324e5d:SolutionExplorerViewPane$ProjectViewPaneTreeStructure$createRoot$1" />
-              <item name="CryptoPals (1 project)" type="977d5f41:SolutionExplorerNodeRider" />
-              <item name="CryptoPals" type="977d5f41:SolutionExplorerNodeRider" />
-            </path>
           </expand>
           <select />
         </subPane>
         <option name="show-file-system" value="false" />
         <option name="show-all-items" value="false" />
       </pane>
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -275,11 +275,12 @@
       <workItem from="1516304059696" duration="98000" />
       <workItem from="1516368087785" duration="74000" />
       <workItem from="1516368245834" duration="38000" />
+      <workItem from="1516397622291" duration="153000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2780000" />
+    <option name="totallyTimeSpent" value="2933000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -291,22 +292,22 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="-10" width="1920" height="1117" extended-state="6" />
+    <frame x="0" y="-10" width="1920" height="1090" extended-state="6" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Errors In Solution" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Unit Tests" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32948583" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="NuGet" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32924336" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21260683" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="NuGet" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32912722" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21527778" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -691,8 +692,8 @@
     <entry file="file://$PROJECT_DIR$/CryptoPals/Conversion.fs" />
     <entry file="file://$PROJECT_DIR$/CryptoPals/Program.fs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+        <state relative-caret-position="198">
+          <caret line="11" column="0" lean-forward="false" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -788,7 +789,16 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1516396216807" expanded="true" signature="19:918" ph=" ..." />
+            <marker date="1516396216807" expanded="false" signature="25:96" ph="..." />
+            <marker date="1516396216807" expanded="true" signature="118:274" ph=" = ..." />
+            <marker date="1516396216807" expanded="true" signature="299:487" ph=" = ..." />
+            <marker date="1516396216807" expanded="true" signature="532:557" ph=" = ..." />
+            <marker date="1516396216807" expanded="true" signature="640:918" ph=" = ..." />
+            <marker date="1516396216807" expanded="true" signature="654:917" ph=" ..." />
+            <marker date="1516396216807" expanded="true" signature="731:837" ph="// Execution of fetchHtmlAsync won't continue until the result ..." />
+          </folding>
         </state>
       </provider>
     </entry>

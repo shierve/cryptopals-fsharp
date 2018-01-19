@@ -440,10 +440,11 @@ let ch31 () =
     let hmac = Hash.hmacsha1 k m
     printfn "hmac: %A" (Data.asHex hmac)
     try
-        let a = fetchJson "http://localhost:3000/ch31?file=hello&signature=fb1954b0164e4d9fd3c0bc7ac1ff3c029d4e9012"
+        let a =
+            fetchJson "http://localhost:3000/ch31?file=hello&signature=fb1954b0164e4d9fd3c0bc7ac1ff3c029d4e9012"
         printfn "response: %A" a
     with
-        | _ -> printfn "500"
+        | _ -> printfn "Server not started"
     printfn "fb1954b0164e4d9fd3c0bc7ac1ff3c029d4e9012"
     let foundSignature = Analysis.timingLeak "http://localhost:3000/ch31" "hello"
     printfn "found: %A" (Data.asHex foundSignature)
