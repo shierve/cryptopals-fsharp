@@ -6,3 +6,4 @@
 /home/shierve/Code/Projects/fsharp/CryptoPals/CryptoPals/obj/Debug/CryptoPals.exe.mdb
 /home/shierve/Code/Projects/fsharp/CryptoPals/CryptoPals/bin/Debug/FSharp.Core.dll
 /home/shierve/Code/Projects/fsharp/CryptoPals/CryptoPals/bin/Debug/System.ValueTuple.dll
+/home/shierve/Code/Projects/fsharp/CryptoPals/CryptoPals/bin/Debug/FSharp.Data.dll

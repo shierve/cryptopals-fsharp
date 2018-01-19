@@ -1,0 +1,25 @@
+{
+  "name": "jsserver",
+  "version": "1.0.0",
+  "description": "",
+  "main": "apiserver.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "shierve",
+  "license": "ISC",
+  "dependencies": {
+    "@types/crypto-js": "^3.1.38",
+    "@types/express": "^4.11.0",
+    "crypto-js": "^3.1.9-1",
+    "express": "^4.16.2",
+    "gulp": "^3.9.1",
+    "gulp-typescript": "^4.0.0-alpha.1",
+    "ts-node": "^4.1.0",
+    "tsc": "^1.20150623.0"
+  },
+  "devDependencies": {
+    "@types/node": "^9.3.0",
+    "typescript": "^2.6.2"
+  }
+}

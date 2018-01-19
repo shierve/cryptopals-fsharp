@@ -34,6 +34,9 @@
     <OtherFlags>--warnon:1182</OtherFlags>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FSharp.Data, Version=2.4.3.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\FSharp.Data.2.4.3\lib\net45\FSharp.Data.dll</HintPath>
+    </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -47,10 +50,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
-    <Compile Include="Hash.fs" />
     <Compile Include="RNG.fs" />
     <Content Include="packages.config" />
     <Compile Include="Data.fs" />
+    <Compile Include="Utils.fs" />
+    <Compile Include="Hash.fs" />
     <Compile Include="Aes.fs" />
     <Compile Include="Encryption.fs" />
     <Compile Include="MockServer.fs" />

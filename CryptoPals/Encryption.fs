@@ -5,11 +5,7 @@ open Crypto
 open System.IO
 open Crypto.RNG
 
-let randomKey =
-    let arr = Array.create 16 0uy
-    let rnd = System.Random()
-    rnd.NextBytes(arr)
-    arr
+let randomKey = Data.randomBytes 16
 
 let repeatingKeyXor (data: byte[]) (key: string): byte[] =
     let length = Array.length data

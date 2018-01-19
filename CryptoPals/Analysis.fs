@@ -212,3 +212,37 @@ let mt19937Untamper (n: uint32) =
     y <- z ^^^ (z >>> 11)
     z ^^^ (y >>> 11)
 
+
+let timingLeak (baseurl: string) (file: string) =
+    let signature = Array.create 20 0uy
+    for i = 0 to (signature.Length - 1) do
+        let best: byte =
+            [ 0..255 ]
+            |> List.mapi (fun bi b ->
+                signature.[i] <- byte b
+                let url = baseurl + "?file=" + file + "&signature=" + (Data.asHex signature)
+                let stopWatch = System.Diagnostics.Stopwatch.StartNew()
+                try
+                    Utils.fetchJson url |> ignore
+                with
+                | _ -> ()
+                (*try
+                    Utils.fetchJson url |> ignore
+                with
+                | _ -> ()
+                try
+                    Utils.fetchJson url |> ignore
+                with
+                | _ -> ()*)
+                stopWatch.Stop()
+                (bi, stopWatch.Elapsed.TotalMilliseconds)
+            ) 
+            |> List.fold (fun (maxi, maxv) (bi, v) ->
+                if v > maxv then (bi, v)
+                else (maxi, maxv)
+            ) (-1, 0.0) |> (fun (bi, _) -> byte bi)
+        signature.[i] <- best
+        printf "%s" (Data.asHex [| best |])
+    printfn ""
+    signature
+
