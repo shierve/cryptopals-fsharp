@@ -405,9 +405,11 @@ let hmac (hash: (byte[] -> byte[])) (blockSize: int) (key: byte[]) (message: byt
     let h1 = hash (Array.append iKeyPad message)
     hash (Array.append oKeyPad h1)
 
+let sha256 (data: byte[]): byte[] =
+    (new SHA256Managed()).ComputeHash data
+
 let hmacsha1 = hmac sha1 64
 
 let hmacmd4 = hmac md4 64
 
-let sha256 (data: byte[]): byte[] =
-    (new SHA256Managed()).ComputeHash data
+let hmacsha256 = hmac sha256 128

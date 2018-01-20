@@ -7,8 +7,10 @@ open Crypto.Set1
 open Crypto.Set2
 open Crypto.Set3
 open Crypto.Set4
-open System.Security.Cryptography.X509Certificates
 open Crypto
+open System.Security.Cryptography
+open Crypto.PublicKey
+open Crypto.Math
 
 
 (****  SET 4  ****)
@@ -133,6 +135,38 @@ let ch35 () =
     Data.asString (Data.tryRemovePadding mReceived2) |> printfn "M guesses %A"
     Data.asString (Data.tryRemovePadding aReceived) |> printfn "A receives %A"
 
+let ch36 () =
+    let N = p
+    let k = 3I
+    let I = "Alice"
+    let p = "password"
+
+    printfn "> 0. Server generates salt and v"
+    let salt = Data.randomBytes 4
+    let v = Array.append salt (Data.fromString p) |> Hash.sha256 |> Data.toBigInt
+    printfn "> 1. Alice sends username I and public ephemeral value A to the server"
+    let (a, A) = genDiffieHellmanKeyPair N g
+    printfn "> 2. Server sends Alice's salt s and public ephemeral value B to Alice"
+    let b = randomBigInteger N
+    let B = (k * v + (modExp g b N)) % N
+    printfn "> 3. Alice and server calculate the random scrambling parameter"
+    let u = Array.append (A.ToByteArray ()) (B.ToByteArray ()) |> Hash.sha256 |> Data.toBigInt
+    printfn "> 4. Alice computes session key"
+    let x = Array.append salt (Data.fromString p) |> Hash.sha256 |> Data.toBigInt
+    let s = modExp (B - k * (modExp g x N)) (a + u * x) N
+    let key = Hash.sha256 (s.ToByteArray ())
+    printfn "k: %A" (Data.asHex key)
+    printfn "> 5. Server computes session key"
+    let Ss = modExp (A * (modExp v u N)) b N
+    let KeyS = Hash.sha256 (Ss.ToByteArray ())
+    printfn "k: %A" (Data.asHex KeyS)
+    printfn "> 6. Alice sends proof of session key to server"
+    let Mc = Hash.hmacsha256 key salt
+    printfn "hmac: %A" (Data.asHex Mc)
+    printfn "> 7. Server validates"
+    let Ms = Hash.hmacsha256 key salt
+    printfn "hmac: %A" (Data.asHex Ms)
+
 
 [<EntryPoint>]
 let main argv =
@@ -142,7 +176,7 @@ let main argv =
             ch9; ch10; ch11; ch12; ch13; ch14; ch15; ch16;  // SET 2
             ch17; ch18; ch19; ch20; ch21; ch22; ch23; ch24;  // SET 3
             ch25; ch26; ch27; ch28; ch29; ch30; ch31; ch32;  // SET 4
-            ch33; ch34; ch35;  // SET 5
+            ch33; ch34; ch35; ch36;  // SET 5
         |]
     if argv.Length > 0 then
         let challenge: (unit -> unit) = challenges.[(int argv.[0])-1]

@@ -3,10 +3,7 @@ module Crypto.Math
 open System.Numerics
 
 let modExp a b n =
-    let rec loop a b c =
-        if b = 0I then c else
-            loop (a*a%n) (b>>>1) (if b&&&1I = 0I then c else c*a%n)
-    loop a b 1I
+    BigInteger.ModPow(a, b, n)
 
 
 /// Returns a BigInteger random number from 0 (inclusive) to max (exclusive).

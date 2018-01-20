@@ -100,3 +100,7 @@ let randomBytes (length: int) =
 let bigIntFromHex (h: string) =
     let arr = fromHex h |> Array.append [| 0uy |]
     (Numerics.BigInteger(Array.rev arr))
+
+let toBigInt (h: byte[]) =
+    let arr = Array.append [| 0uy |] h
+    (Numerics.BigInteger(Array.rev arr))
