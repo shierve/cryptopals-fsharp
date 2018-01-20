@@ -2,12 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="100cccf8-71b1-42f2-9e24-ff9f90b9172a" name="Default" comment="">
+      <change beforePath="" afterPath="$PROJECT_DIR$/CryptoPals/Set1.fs" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/CryptoPals/Set2.fs" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/CryptoPals/Set3.fs" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/CryptoPals/Set4.fs" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.CryptoPals/.idea/contentModel.xml" afterPath="$PROJECT_DIR$/.idea/.idea.CryptoPals/.idea/contentModel.xml" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.CryptoPals/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/.idea.CryptoPals/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/CryptoPals/Analysis.fs" afterPath="$PROJECT_DIR$/CryptoPals/Analysis.fs" />
-      <change beforePath="$PROJECT_DIR$/CryptoPals/Program.fs" afterPath="$PROJECT_DIR$/CryptoPals/Program.fs" />
-      <change beforePath="$PROJECT_DIR$/CryptoPals/Utils.fs" afterPath="$PROJECT_DIR$/CryptoPals/Utils.fs" />
+      <change beforePath="$PROJECT_DIR$/CryptoPals/CryptoPals.fsproj" afterPath="$PROJECT_DIR$/CryptoPals/CryptoPals.fsproj" />
       <change beforePath="$PROJECT_DIR$/CryptoPals/obj/Debug/CryptoPals.exe" afterPath="$PROJECT_DIR$/CryptoPals/obj/Debug/CryptoPals.exe" />
       <change beforePath="$PROJECT_DIR$/CryptoPals/obj/Debug/CryptoPals.exe.mdb" afterPath="$PROJECT_DIR$/CryptoPals/obj/Debug/CryptoPals.exe.mdb" />
+      <change beforePath="$PROJECT_DIR$/CryptoPals/obj/fsac.cache" afterPath="$PROJECT_DIR$/CryptoPals/obj/fsac.cache" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -18,41 +22,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Program.fs" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CryptoPals/Program.fs">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="11" column="0" lean-forward="false" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Data.fs" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CryptoPals/Data.fs">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="72">
-              <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Analysis.fs" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/CryptoPals/Analysis.fs">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
               <caret line="0" column="22" lean-forward="false" selection-start-line="0" selection-start-column="22" selection-end-line="0" selection-end-column="22" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Encryption.fs" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CryptoPals/Encryption.fs">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="24" lean-forward="false" selection-start-line="0" selection-start-column="24" selection-end-line="0" selection-end-column="24" />
               <folding />
             </state>
           </provider>
@@ -129,21 +103,63 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Utils.fs" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Utils.fs" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/CryptoPals/Utils.fs">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding>
-                <marker date="1516396216807" expanded="true" signature="19:918" ph=" ..." />
-                <marker date="1516396216807" expanded="false" signature="25:96" ph="..." />
-                <marker date="1516396216807" expanded="true" signature="118:274" ph=" = ..." />
-                <marker date="1516396216807" expanded="true" signature="299:487" ph=" = ..." />
-                <marker date="1516396216807" expanded="true" signature="532:557" ph=" = ..." />
-                <marker date="1516396216807" expanded="true" signature="640:918" ph=" = ..." />
-                <marker date="1516396216807" expanded="true" signature="654:917" ph=" ..." />
-                <marker date="1516396216807" expanded="true" signature="731:837" ph="// Execution of fetchHtmlAsync won't continue until the result ..." />
+                <marker date="1516399010129" expanded="true" signature="19:1046" ph=" ..." />
+                <marker date="1516399010129" expanded="false" signature="25:96" ph="..." />
+                <marker date="1516399010129" expanded="true" signature="118:274" ph=" = ..." />
+                <marker date="1516399010129" expanded="true" signature="299:487" ph=" = ..." />
+                <marker date="1516399010129" expanded="true" signature="532:557" ph=" = ..." />
+                <marker date="1516399010129" expanded="true" signature="642:1046" ph=" = ..." />
+                <marker date="1516399010129" expanded="true" signature="709:811" ph="// Execution of fetchHtmlAsync won't continue until the result ..." />
+                <marker date="1516399010129" expanded="true" signature="861:1046" ph=" ..." />
+                <marker date="1516399010129" expanded="true" signature="971:1046" ph=" ..." />
+                <marker date="1516399010129" expanded="true" signature="979:1046" ph=" -&gt; ..." />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Set1.fs" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CryptoPals/Set1.fs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="18" lean-forward="false" selection-start-line="0" selection-start-column="18" selection-end-line="0" selection-end-column="18" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Set2.fs" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CryptoPals/Set2.fs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="18" lean-forward="false" selection-start-line="0" selection-start-column="18" selection-end-line="0" selection-end-column="18" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Set3.fs" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CryptoPals/Set3.fs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="18" lean-forward="false" selection-start-line="0" selection-start-column="18" selection-end-line="0" selection-end-column="18" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Set4.fs" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/CryptoPals/Set4.fs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="18" lean-forward="true" selection-start-line="0" selection-start-column="18" selection-end-line="0" selection-end-column="18" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -159,10 +175,14 @@
     <setting file="file://$PROJECT_DIR$/CryptoPals/Data.fs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/CryptoPals/MockServer.fs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/CryptoPals/Encryption.fs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/CryptoPals/Utils.fs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/CryptoPals/Hash.fs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/CryptoPals/Program.fs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/CryptoPals/RNG.fs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/CryptoPals/Set1.fs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/CryptoPals/Set2.fs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/CryptoPals/Set3.fs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/CryptoPals/Set4.fs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/CryptoPals/Utils.fs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/CryptoPals/Hash.fs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -173,6 +193,10 @@
         <option value="$PROJECT_DIR$/CryptoPals/Analysis.fs" />
         <option value="$PROJECT_DIR$/CryptoPals/Encryption.fs" />
         <option value="$PROJECT_DIR$/CryptoPals/Aes.fs" />
+        <option value="$PROJECT_DIR$/CryptoPals/Set1.fs" />
+        <option value="$PROJECT_DIR$/CryptoPals/Set2.fs" />
+        <option value="$PROJECT_DIR$/CryptoPals/Set3.fs" />
+        <option value="$PROJECT_DIR$/CryptoPals/Set4.fs" />
       </list>
     </option>
   </component>
@@ -203,7 +227,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="SolutionExplorer">
         <subPane>
           <expand>
@@ -211,12 +234,18 @@
               <item name="" type="13324e5d:SolutionExplorerViewPane$ProjectViewPaneTreeStructure$createRoot$1" />
               <item name="CryptoPals (1 project)" type="977d5f41:SolutionExplorerNodeRider" />
             </path>
+            <path>
+              <item name="" type="13324e5d:SolutionExplorerViewPane$ProjectViewPaneTreeStructure$createRoot$1" />
+              <item name="CryptoPals (1 project)" type="977d5f41:SolutionExplorerNodeRider" />
+              <item name="CryptoPals" type="977d5f41:SolutionExplorerNodeRider" />
+            </path>
           </expand>
           <select />
         </subPane>
         <option name="show-file-system" value="false" />
         <option name="show-all-items" value="false" />
       </pane>
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -276,11 +305,12 @@
       <workItem from="1516368087785" duration="74000" />
       <workItem from="1516368245834" duration="38000" />
       <workItem from="1516397622291" duration="153000" />
+      <workItem from="1516441025334" duration="223000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2933000" />
+    <option name="totallyTimeSpent" value="3156000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -302,7 +332,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="NuGet" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32912722" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21527778" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21794872" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -329,38 +359,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/CryptoPals/Program.fs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CryptoPals/Data.fs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CryptoPals/Analysis.fs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="22" lean-forward="false" selection-start-line="0" selection-start-column="22" selection-end-line="0" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CryptoPals/Encryption.fs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="24" lean-forward="false" selection-start-line="0" selection-start-column="24" selection-end-line="0" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/CryptoPals/Aes.fs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -790,15 +788,49 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1516396216807" expanded="true" signature="19:918" ph=" ..." />
-            <marker date="1516396216807" expanded="false" signature="25:96" ph="..." />
-            <marker date="1516396216807" expanded="true" signature="118:274" ph=" = ..." />
-            <marker date="1516396216807" expanded="true" signature="299:487" ph=" = ..." />
-            <marker date="1516396216807" expanded="true" signature="532:557" ph=" = ..." />
-            <marker date="1516396216807" expanded="true" signature="640:918" ph=" = ..." />
-            <marker date="1516396216807" expanded="true" signature="654:917" ph=" ..." />
-            <marker date="1516396216807" expanded="true" signature="731:837" ph="// Execution of fetchHtmlAsync won't continue until the result ..." />
+            <marker date="1516399010129" expanded="true" signature="19:1046" ph=" ..." />
+            <marker date="1516399010129" expanded="false" signature="25:96" ph="..." />
+            <marker date="1516399010129" expanded="true" signature="118:274" ph=" = ..." />
+            <marker date="1516399010129" expanded="true" signature="299:487" ph=" = ..." />
+            <marker date="1516399010129" expanded="true" signature="532:557" ph=" = ..." />
+            <marker date="1516399010129" expanded="true" signature="642:1046" ph=" = ..." />
+            <marker date="1516399010129" expanded="true" signature="709:811" ph="// Execution of fetchHtmlAsync won't continue until the result ..." />
+            <marker date="1516399010129" expanded="true" signature="861:1046" ph=" ..." />
+            <marker date="1516399010129" expanded="true" signature="971:1046" ph=" ..." />
+            <marker date="1516399010129" expanded="true" signature="979:1046" ph=" -&gt; ..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CryptoPals/Set1.fs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="18" lean-forward="false" selection-start-line="0" selection-start-column="18" selection-end-line="0" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CryptoPals/Set2.fs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="18" lean-forward="false" selection-start-line="0" selection-start-column="18" selection-end-line="0" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CryptoPals/Set3.fs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="18" lean-forward="false" selection-start-line="0" selection-start-column="18" selection-end-line="0" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CryptoPals/Set4.fs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="18" lean-forward="true" selection-start-line="0" selection-start-column="18" selection-end-line="0" selection-end-column="18" />
+          <folding />
         </state>
       </provider>
     </entry>
