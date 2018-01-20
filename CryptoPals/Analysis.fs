@@ -218,17 +218,17 @@ let timingLeak (baseurl: string) (file: string) =
     for i = 0 to (signature.Length - 1) do
         let best: byte =
             [ 0..255 ]
-            |> List.mapi (fun bi b ->
+            |> List.map (fun b ->
                 signature.[i] <- byte b
                 let url = baseurl + "?file=" + file + "&signature=" + (Data.asHex signature)
                 let start = System.DateTime.Now.Ticks
-                for _t = 0 to 3 do
+                for _t = 1 to 50 do
                     try
                         Utils.fetchJson url |> ignore
                     with
                     | _ -> ()
                 let stop = System.DateTime.Now.Ticks
-                (bi, stop-start)
+                (b, stop-start)
             ) 
             |> List.fold (fun (maxi, maxv) (bi, v) ->
                 if v > maxv then (bi, v)

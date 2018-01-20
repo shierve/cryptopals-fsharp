@@ -13,7 +13,7 @@ const CryptoJS = require("crypto-js");
 const app = express();
 const key = "super secret key";
 const testmessage = "hello";
-const sleeptime = 15;
+const sleeptime = 3;
 const hmacsha1 = (key, message) => {
     const hm = CryptoJS.HmacSHA1(message, key);
     return CryptoJS.enc.Hex.stringify(hm);
@@ -46,4 +46,5 @@ app.get('/ch31', (req, res) => {
     });
 });
 console.log("test code", hmacsha1(key, testmessage));
+console.log("Artificial delay: ", sleeptime);
 app.listen(3000, () => console.log('listening on port 3000'));

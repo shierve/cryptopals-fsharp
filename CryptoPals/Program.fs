@@ -449,6 +449,17 @@ let ch31 () =
     let foundSignature = Analysis.timingLeak "http://localhost:3000/ch31" "hello"
     printfn "found: %A" (Data.asHex foundSignature)
 
+let ch32 () =
+    // Same as ch31. Works with 3ms delay
+    try
+        fetchJson "http://localhost:3000/ch31?file=hello&signature=fb1954b0164e4d9fd3c0bc7ac1ff3c029d4e9012" |> ignore
+        printfn "server Ok"
+    with
+        | _ -> printfn "Server not started"
+    printfn "fb1954b0164e4d9fd3c0bc7ac1ff3c029d4e9012"
+    let foundSignature = Analysis.timingLeak "http://localhost:3000/ch31" "hello"
+    printfn "found: %A" (Data.asHex foundSignature)
+
 
 [<EntryPoint>]
 let main argv =
@@ -457,7 +468,7 @@ let main argv =
             ch1; ch2; ch3; ch4; ch5; ch6; ch7; ch8;  // SET 1
             ch9; ch10; ch11; ch12; ch13; ch14; ch15; ch16;  // SET 2
             ch17; ch18; ch19; ch20; ch21; ch22; ch23; ch24;  // SET 3
-            ch25; ch26; ch27; ch28; ch29; ch30; ch31;  // SET 4
+            ch25; ch26; ch27; ch28; ch29; ch30; ch31; ch32;  // SET 4
         |]
     if argv.Length > 0 then
         let challenge: (unit -> unit) = challenges.[(int argv.[0])-1]
