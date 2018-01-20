@@ -55,6 +55,8 @@
     <Compile Include="Data.fs" />
     <Compile Include="Utils.fs" />
     <Compile Include="Hash.fs" />
+    <Compile Include="Math.fs" />
+    <Compile Include="PublicKey.fs" />
     <Compile Include="Aes.fs" />
     <Compile Include="Encryption.fs" />
     <Compile Include="MockServer.fs" />

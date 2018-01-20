@@ -1,5 +1,6 @@
 module Crypto.Hash
 
+open System.Security.Cryptography
 open System
 open Crypto
 
@@ -407,3 +408,6 @@ let hmac (hash: (byte[] -> byte[])) (blockSize: int) (key: byte[]) (message: byt
 let hmacsha1 = hmac sha1 64
 
 let hmacmd4 = hmac md4 64
+
+let sha256 (data: byte[]): byte[] =
+    (new SHA256Managed()).ComputeHash data

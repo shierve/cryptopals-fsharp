@@ -143,8 +143,12 @@ let ch31 () =
     with
         | _ -> printfn "Server not started"
     printfn "fb1954b0164e4d9fd3c0bc7ac1ff3c029d4e9012"
-    let foundSignature = Analysis.timingLeak "http://localhost:3000/ch31" "hello"
-    printfn "found: %A" (Data.asHex foundSignature)
+    let foundSignature = Analysis.timingLeak "http://localhost:3000/ch31" "hello" 60
+    match foundSignature with
+    | Some s ->
+        printfn "found: %A" (Data.asHex s)
+    | None ->
+        printfn "Signature not found"
 
 let ch32 () =
     // Same as ch31. Works with 3ms delay
@@ -154,5 +158,9 @@ let ch32 () =
     with
         | _ -> printfn "Server not started"
     printfn "fb1954b0164e4d9fd3c0bc7ac1ff3c029d4e9012"
-    let foundSignature = Analysis.timingLeak "http://localhost:3000/ch31" "hello"
-    printfn "found: %A" (Data.asHex foundSignature)
+    let foundSignature = Analysis.timingLeak "http://localhost:3000/ch31" "hello" 60
+    match foundSignature with
+    | Some s ->
+        printfn "found: %A" (Data.asHex s)
+    | None ->
+        printfn "Signature not found"

@@ -12,8 +12,10 @@
         <e p="Data.fs" t="Include" />
         <e p="Encryption.fs" t="Include" />
         <e p="Hash.fs" t="Include" />
+        <e p="Math.fs" t="Include" />
         <e p="MockServer.fs" t="Include" />
         <e p="Program.fs" t="Include" />
+        <e p="PublicKey.fs" t="Include" />
         <e p="RNG.fs" t="Include" />
         <e p="Set1.fs" t="Include" />
         <e p="Set2.fs" t="Include" />

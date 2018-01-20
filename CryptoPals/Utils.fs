@@ -21,16 +21,18 @@ let myCallback (reader:IO.StreamReader) url =
 let fetchJson url = JsonValue.Parse(getUrl myCallback url)
 
 let timeRequestAsync url =
-    let uri = Uri(url)
-    use webClient = new WebClient()
+    async {
+        let uri = Uri(url)
+        use webClient = new WebClient()
 
-    // Execution of fetchHtmlAsync won't continue until the result
-    // of AsyncDownloadString is bound.
-    let start = System.DateTime.Now.Ticks
-    try
-        let _html = webClient.AsyncDownloadString(uri) |> Async.RunSynchronously
-        1000000000L
-    with
-    | _ ->
-        let stop = System.DateTime.Now.Ticks
-        stop-start
+        // Execution of fetchHtmlAsync won't continue until the result
+        // of AsyncDownloadString is bound.
+        let start = System.DateTime.Now.Ticks
+        try
+            let! _html = webClient.AsyncDownloadString(uri)
+            return 1000000000L
+        with
+        | _ ->
+            let stop = System.DateTime.Now.Ticks
+            return stop-start
+    }

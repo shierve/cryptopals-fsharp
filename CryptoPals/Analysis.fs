@@ -213,9 +213,10 @@ let mt19937Untamper (n: uint32) =
     z ^^^ (y >>> 11)
 
 
-let timingLeak (baseurl: string) (file: string) =
+let timingLeak (baseurl: string) (file: string) (iterations) =
     let signature = Array.create 20 0uy
-    for i = 0 to (signature.Length - 1) do
+    // First 19 bytes
+    for i = 0 to 18 do
         let best: byte =
             [ 0..255 ]
             |> List.map (fun b ->
@@ -236,6 +237,22 @@ let timingLeak (baseurl: string) (file: string) =
             ) (-1, 0L) |> (fun (bi, _) -> byte bi)
         signature.[i] <- best
         printf "%s" (Data.asHex [| best |])
+    // Last byte
+    let maybeLastB =
+        [ 0..255 ]
+        |> List.tryFind (fun b ->
+            signature.[19] <- byte b
+            let url = baseurl + "?file=" + file + "&signature=" + (Data.asHex signature)
+            try
+                Utils.fetchJson url |> ignore
+                true
+            with
+            | _ -> false
+        )
     printfn ""
-    signature
+    match maybeLastB with
+    | Some b ->
+        signature.[19] <- byte b
+        Some signature
+    | None -> None
 

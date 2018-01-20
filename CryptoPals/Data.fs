@@ -96,3 +96,7 @@ let randomBytes (length: int) =
     let rnd = System.Random()
     rnd.NextBytes(arr)
     arr
+
+let bigIntFromHex (h: string) =
+    let arr = fromHex h |> Array.append [| 0uy |]
+    (Numerics.BigInteger(Array.rev arr))
