@@ -43,8 +43,8 @@ let ch33 () =
     p.ToByteArray() |> Array.rev |> Data.asHex |> printfn "p: %A"
 
 let ch34 () =
-    let (a, A) = PublicKey.genDiffieHellmanKeyPair 37I 5I
-    let (b, B) = PublicKey.genDiffieHellmanKeyPair 37I 5I
+    let (a, A) = PublicKey.genDiffieHellmanKeyPair p g
+    let (b, B) = PublicKey.genDiffieHellmanKeyPair p g
     let sA = PublicKey.genDiffieHellmanSessionKey p a p // = sha1(0)
     let sB = PublicKey.genDiffieHellmanSessionKey p b p // = sha1(0)
     let sM = (0I).ToByteArray() |> Hash.sha1 |> (fun a -> a.[..15])
@@ -61,6 +61,77 @@ let ch34 () =
     Data.asString (Data.tryRemovePadding mReceived2) |> printfn "M receives %A"
     Data.asString (Data.tryRemovePadding aReceived) |> printfn "A receives %A"
 
+let ch35 () =
+    // When g = 1 then A = 1**a mod p = 1 -> [ s = 1**a mod p = 1 ]
+    let (a, A) = PublicKey.genDiffieHellmanKeyPair p 1I
+    let (b, B) = PublicKey.genDiffieHellmanKeyPair p 1I
+    let sA = PublicKey.genDiffieHellmanSessionKey p a B // = sha1(1)
+    let sB = PublicKey.genDiffieHellmanSessionKey p b A // = sha1(1)
+    let sM = (1I).ToByteArray() |> Hash.sha1 |> (fun a -> a.[..15])
+    let iv = Data.randomBytes 16
+    let aMessage = Aes.encryptCBC sA iv (Data.pad 16 (Data.fromString "The quick brown fox jumps over the lazy dog"))
+    let mReceived = Aes.decryptCBC sM iv aMessage
+    let bReceived = Aes.decryptCBC sB iv aMessage
+    let bMessage = Aes.encryptCBC sB iv (Data.tryRemovePadding bReceived)
+    let mReceived2 = Aes.decryptCBC sM iv bMessage
+    let aReceived = Aes.decryptCBC sA iv bMessage
+    printfn "g = 1"
+    Data.asString (Data.tryRemovePadding mReceived) |> printfn "M receives %A"
+    Data.asString (Data.tryRemovePadding bReceived) |> printfn "B receives %A"
+    Data.asString (Data.tryRemovePadding mReceived2) |> printfn "M receives %A"
+    Data.asString (Data.tryRemovePadding aReceived) |> printfn "A receives %A"
+    // When g = p then A = p**a mod p = 0 -> [ s = 0**a mod p = 0 ]
+    let (a, A) = PublicKey.genDiffieHellmanKeyPair p p
+    let (b, B) = PublicKey.genDiffieHellmanKeyPair p p
+    let sA = PublicKey.genDiffieHellmanSessionKey p a B // = sha1(0)
+    let sB = PublicKey.genDiffieHellmanSessionKey p b A // = sha1(0)
+    let sM = (0I).ToByteArray() |> Hash.sha1 |> (fun a -> a.[..15])
+    let iv = Data.randomBytes 16
+    let aMessage = Aes.encryptCBC sA iv (Data.pad 16 (Data.fromString "The quick brown fox jumps over the lazy dog"))
+    let mReceived = Aes.decryptCBC sM iv aMessage
+    let bReceived = Aes.decryptCBC sB iv aMessage
+    let bMessage = Aes.encryptCBC sB iv (Data.tryRemovePadding bReceived)
+    let mReceived2 = Aes.decryptCBC sM iv bMessage
+    let aReceived = Aes.decryptCBC sA iv bMessage
+    printfn "g = p"
+    Data.asString (Data.tryRemovePadding mReceived) |> printfn "M receives %A"
+    Data.asString (Data.tryRemovePadding bReceived) |> printfn "B receives %A"
+    Data.asString (Data.tryRemovePadding mReceived2) |> printfn "M receives %A"
+    Data.asString (Data.tryRemovePadding aReceived) |> printfn "A receives %A"
+    // When g = p - 1
+    // then A = (p-1)**a mod p = either 1 or p - 1  (depends if a is pair or odd)
+    // and then s = either 1 or p - 1
+    let (a, A) = PublicKey.genDiffieHellmanKeyPair p (p-1I)
+    let (b, B) = PublicKey.genDiffieHellmanKeyPair p (p-1I)
+    let sA = PublicKey.genDiffieHellmanSessionKey p a B // = sha1(1 or p-1)
+    let sB = PublicKey.genDiffieHellmanSessionKey p b A // = sha1(1 or p-1)
+    let sM1 = (1I).ToByteArray() |> Hash.sha1 |> (fun a -> a.[..15])
+    let sM2 = (p-1I).ToByteArray() |> Hash.sha1 |> (fun a -> a.[..15])
+    let iv = Data.randomBytes 16
+    let aMessage = Aes.encryptCBC sA iv (Data.pad 16 (Data.fromString "The quick brown fox jumps over the lazy dog"))
+    let mReceiveda = Aes.decryptCBC sM1 iv aMessage
+    let mReceivedb = Aes.decryptCBC sM2 iv aMessage
+    let bReceived = Aes.decryptCBC sB iv aMessage
+    let bMessage = Aes.encryptCBC sB iv (Data.tryRemovePadding bReceived)
+    let mReceived2a = Aes.decryptCBC sM1 iv bMessage
+    let mReceived2b = Aes.decryptCBC sM2 iv bMessage
+    let aReceived = Aes.decryptCBC sA iv bMessage
+    printfn "g = p - 1"
+    // We can guess the most provable correct guess with frequency evaluation,
+    let mReceived =
+        [mReceiveda; mReceivedb]
+        |> List.map (fun d -> (d, Analysis.frequencyEvaluation d))
+        |> List.minBy (fun (_, f) -> f)
+        |> (fun (d, _) -> d)
+    let mReceived2 =
+        [mReceived2a; mReceived2b]
+        |> List.map (fun d -> (d, Analysis.frequencyEvaluation d))
+        |> List.minBy (fun (_, f) -> f)
+        |> (fun (d, _) -> d)
+    Data.asString (Data.tryRemovePadding mReceived) |> printfn "M guesses %A"
+    Data.asString (Data.tryRemovePadding bReceived) |> printfn "B receives %A"
+    Data.asString (Data.tryRemovePadding mReceived2) |> printfn "M guesses %A"
+    Data.asString (Data.tryRemovePadding aReceived) |> printfn "A receives %A"
 
 
 [<EntryPoint>]
@@ -71,7 +142,7 @@ let main argv =
             ch9; ch10; ch11; ch12; ch13; ch14; ch15; ch16;  // SET 2
             ch17; ch18; ch19; ch20; ch21; ch22; ch23; ch24;  // SET 3
             ch25; ch26; ch27; ch28; ch29; ch30; ch31; ch32;  // SET 4
-            ch33; ch34;  // SET 5
+            ch33; ch34; ch35;  // SET 5
         |]
     if argv.Length > 0 then
         let challenge: (unit -> unit) = challenges.[(int argv.[0])-1]

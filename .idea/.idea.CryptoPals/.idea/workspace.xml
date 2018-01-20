@@ -2,20 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="100cccf8-71b1-42f2-9e24-ff9f90b9172a" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/CryptoPals/Math.fs" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/CryptoPals/PublicKey.fs" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.CryptoPals/.idea/contentModel.xml" afterPath="$PROJECT_DIR$/.idea/.idea.CryptoPals/.idea/contentModel.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.CryptoPals/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/.idea.CryptoPals/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/CryptoPals/Analysis.fs" afterPath="$PROJECT_DIR$/CryptoPals/Analysis.fs" />
-      <change beforePath="$PROJECT_DIR$/CryptoPals/CryptoPals.fsproj" afterPath="$PROJECT_DIR$/CryptoPals/CryptoPals.fsproj" />
-      <change beforePath="$PROJECT_DIR$/CryptoPals/Data.fs" afterPath="$PROJECT_DIR$/CryptoPals/Data.fs" />
-      <change beforePath="$PROJECT_DIR$/CryptoPals/Hash.fs" afterPath="$PROJECT_DIR$/CryptoPals/Hash.fs" />
-      <change beforePath="$PROJECT_DIR$/CryptoPals/Program.fs" afterPath="$PROJECT_DIR$/CryptoPals/Program.fs" />
-      <change beforePath="$PROJECT_DIR$/CryptoPals/Set4.fs" afterPath="$PROJECT_DIR$/CryptoPals/Set4.fs" />
-      <change beforePath="$PROJECT_DIR$/CryptoPals/Utils.fs" afterPath="$PROJECT_DIR$/CryptoPals/Utils.fs" />
-      <change beforePath="$PROJECT_DIR$/CryptoPals/obj/Debug/CryptoPals.exe" afterPath="$PROJECT_DIR$/CryptoPals/obj/Debug/CryptoPals.exe" />
-      <change beforePath="$PROJECT_DIR$/CryptoPals/obj/Debug/CryptoPals.exe.mdb" afterPath="$PROJECT_DIR$/CryptoPals/obj/Debug/CryptoPals.exe.mdb" />
-      <change beforePath="$PROJECT_DIR$/CryptoPals/obj/fsac.cache" afterPath="$PROJECT_DIR$/CryptoPals/obj/fsac.cache" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -214,7 +201,7 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="y" value="-10" />
     <option name="width" value="1920" />
     <option name="height" value="1090" />
@@ -331,8 +318,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="-10" width="1920" height="1090" extended-state="7" />
-    <editor active="true" />
+    <frame x="0" y="-10" width="1920" height="1090" extended-state="6" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Errors In Solution" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />

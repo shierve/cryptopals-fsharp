@@ -213,7 +213,7 @@ let mt19937Untamper (n: uint32) =
     z ^^^ (y >>> 11)
 
 
-let timingLeak (baseurl: string) (file: string) (iterations) =
+let timingLeak (baseurl: string) (file: string) (iterations: int) =
     let signature = Array.create 20 0uy
     // First 19 bytes
     for i = 0 to 18 do
@@ -223,7 +223,7 @@ let timingLeak (baseurl: string) (file: string) (iterations) =
                 signature.[i] <- byte b
                 let url = baseurl + "?file=" + file + "&signature=" + (Data.asHex signature)
                 let start = System.DateTime.Now.Ticks
-                for _t = 1 to 50 do
+                for _t = 1 to iterations do
                     try
                         Utils.fetchJson url |> ignore
                     with
