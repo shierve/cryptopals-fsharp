@@ -42,6 +42,8 @@ app.get('/ch31', (req, res) => {
     });
 });
 
+
+
 console.log("test code", hmacsha1(key, testmessage))
 console.log("Artificial delay: ", sleeptime)
 app.listen(3000, () => console.log('listening on port 3000'));

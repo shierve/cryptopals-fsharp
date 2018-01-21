@@ -7,10 +7,15 @@ open Crypto.Set1
 open Crypto.Set2
 open Crypto.Set3
 open Crypto.Set4
-open Crypto
-open System.Security.Cryptography
 open Crypto.PublicKey
 open Crypto.Math
+open Suave.Web
+open Crypto.SuaveServer.UserController
+open Crypto.SuaveServer
+open Crypto.SuaveServer
+open System.Net
+open FSharp.Data
+open FSharp.Data.HttpRequestHeaders
 
 
 (****  SET 4  ****)
@@ -137,35 +142,74 @@ let ch35 () =
 
 let ch36 () =
     let N = p
-    let k = 3I
+    let k = Array.append (N.ToByteArray ()) (g.ToByteArray ()) |> Hash.sha256 |> Data.toBigInt
     let I = "Alice"
     let p = "password"
-
     printfn "> 0. Server generates salt and v"
-    let salt = Data.randomBytes 4
-    let v = Array.append salt (Data.fromString p) |> Hash.sha256 |> Data.toBigInt
+    let salt = Data.randomBytes 8
+    let xH = Array.concat [| salt; (Data.fromString I); (Data.fromString p) |] |> Hash.sha256 |> Data.asHex |> Data.bigIntFromHex
+    let v = modExp g xH N
     printfn "> 1. Alice sends username I and public ephemeral value A to the server"
     let (a, A) = genDiffieHellmanKeyPair N g
     printfn "> 2. Server sends Alice's salt s and public ephemeral value B to Alice"
     let b = randomBigInteger N
     let B = (k * v + (modExp g b N)) % N
     printfn "> 3. Alice and server calculate the random scrambling parameter"
-    let u = Array.append (A.ToByteArray ()) (B.ToByteArray ()) |> Hash.sha256 |> Data.toBigInt
+    let u = Array.append (A.ToByteArray ()) (B.ToByteArray ()) |> Hash.sha256 |> Data.asHex |> Data.bigIntFromHex
     printfn "> 4. Alice computes session key"
-    let x = Array.append salt (Data.fromString p) |> Hash.sha256 |> Data.toBigInt
-    let s = modExp (B - k * (modExp g x N)) (a + u * x) N
+    let x = Array.concat [| salt; (Data.fromString I); (Data.fromString p) |] |> Hash.sha256 |> Data.asHex |> Data.bigIntFromHex
+    let aux = (k * (modExp g x N)) % N
+    let s = modExp (modulo (B - aux) N) (a + u * x) N
     let key = Hash.sha256 (s.ToByteArray ())
-    printfn "k: %A" (Data.asHex key)
+    printfn "k: %A" (abs s)
     printfn "> 5. Server computes session key"
     let Ss = modExp (A * (modExp v u N)) b N
     let KeyS = Hash.sha256 (Ss.ToByteArray ())
-    printfn "k: %A" (Data.asHex KeyS)
+    printfn "k: %A" Ss
     printfn "> 6. Alice sends proof of session key to server"
     let Mc = Hash.hmacsha256 key salt
     printfn "hmac: %A" (Data.asHex Mc)
     printfn "> 7. Server validates"
-    let Ms = Hash.hmacsha256 key salt
+    let Ms = Hash.hmacsha256 KeyS salt
     printfn "hmac: %A" (Data.asHex Ms)
+
+let ch37 () =
+    let I = "alice"
+    let N = p
+    let p = "password"
+    let k = 3I
+    let resp1 = 
+        Http.RequestString
+            ( "http://127.0.0.1:8080/api/user/new", 
+            headers = [ ContentType HttpContentTypes.Json ],
+            body = TextRequest """ {"I": "alice", "p": "password"} """)
+    printfn "%A" resp1
+    let (a, A) = genDiffieHellmanKeyPair N g
+    let resp2 = 
+        Http.RequestString
+            ( "http://127.0.0.1:8080/api/user/newsession",
+            headers = [ ContentType HttpContentTypes.Json ],
+            body = TextRequest (" {\"I\": \"alice\", \"A\": \"" + (Data.bigIntAsHex A) +  "\" }"))
+    let jsonResp = JsonValue.Parse(resp2)
+    let Bjson = jsonResp.GetProperty "b"
+    let Sjson = jsonResp.GetProperty "salt"
+    let B = Bjson.AsString() |> Data.bigIntFromHex
+    let salt = Sjson.AsString() |> Data.fromHex
+    let u = Array.append (A.ToByteArray ()) (B.ToByteArray ()) |> Hash.sha256 |> Data.toBigInt
+    // Session Key
+    let x = Array.concat [| salt; (Data.fromString I); (Data.fromString p) |] |> Hash.sha256 |> Data.toBigInt
+    let aux = (k * (modExp g x N)) % N
+    let s = modExp (modulo (B - aux) N) (a + u * x) N
+    let key = Hash.sha256 (s.ToByteArray ())
+    printfn "s: %A" s
+    printfn "key: %A" (Data.asHex key)
+    let hmacKey = Hash.hmacsha256 key salt
+    let resp = 
+        Http.RequestString
+            ( "http://127.0.0.1:8080/api/user/validatesession",
+            headers = [ ContentType HttpContentTypes.Json ],
+            body = TextRequest (" {\"I\": \"alice\", \"k\": \"" + (Data.asHex hmacKey) +  "\" }"))
+    printfn "%A" resp
 
 
 [<EntryPoint>]
@@ -176,11 +220,14 @@ let main argv =
             ch9; ch10; ch11; ch12; ch13; ch14; ch15; ch16;  // SET 2
             ch17; ch18; ch19; ch20; ch21; ch22; ch23; ch24;  // SET 3
             ch25; ch26; ch27; ch28; ch29; ch30; ch31; ch32;  // SET 4
-            ch33; ch34; ch35; ch36;  // SET 5
+            ch33; ch34; ch35; ch36; ch37; // SET 5
         |]
     if argv.Length > 0 then
-        let challenge: (unit -> unit) = challenges.[(int argv.[0])-1]
-        challenge ()
+        if (int argv.[0]) = -1 then
+            startWebServer defaultConfig (UserController Crypto.SuaveServer.UserDB.UserDB)
+        else
+            let challenge: (unit -> unit) = challenges.[(int argv.[0])-1]
+            challenge ()
     else
         let challenge: (unit -> unit) = challenges.[challenges.Length-1]
         challenge ()

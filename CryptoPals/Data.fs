@@ -2,6 +2,7 @@ module Crypto.Data
 
 open System
 open System.Text
+open System.Numerics
 
 
 exception PaddingException
@@ -104,3 +105,6 @@ let bigIntFromHex (h: string) =
 let toBigInt (h: byte[]) =
     let arr = Array.append [| 0uy |] h
     (Numerics.BigInteger(Array.rev arr))
+
+let bigIntAsHex (n: BigInteger) =
+    n.ToByteArray() |> Array.rev |> asHex

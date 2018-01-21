@@ -5,6 +5,9 @@ open System.Numerics
 let modExp a b n =
     BigInteger.ModPow(a, b, n)
 
+let modulo (a: BigInteger) b =
+    ((a % b) + b) % b
+
 
 /// Returns a BigInteger random number from 0 (inclusive) to max (exclusive).
 let randomBigInteger (max:bigint) =

@@ -38,6 +38,12 @@
       <HintPath>..\packages\FSharp.Data.2.4.3\lib\net45\FSharp.Data.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib" />
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Suave, Version=2.2.1.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\Suave.2.2.1\lib\net40\Suave.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Numerics" />
@@ -50,8 +56,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
-    <Compile Include="RNG.fs" />
     <Content Include="packages.config" />
+    <Compile Include="RNG.fs" />
     <Compile Include="Data.fs" />
     <Compile Include="Utils.fs" />
     <Compile Include="Hash.fs" />
@@ -59,6 +65,7 @@
     <Compile Include="Math.fs" />
     <Compile Include="PublicKey.fs" />
     <Compile Include="Encryption.fs" />
+    <Compile Include="SuaveServer.fs" />
     <Compile Include="MockServer.fs" />
     <Compile Include="Analysis.fs" />
     <Compile Include="Set1.fs" />
