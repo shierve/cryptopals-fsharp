@@ -184,6 +184,8 @@ let ch37 () =
             headers = [ ContentType HttpContentTypes.Json ],
             body = TextRequest """ {"I": "alice", "p": "password"} """)
     printfn "%A" resp1
+    // Proper Session
+    printfn "1. Try Server with normal session"
     let (a, A) = genDiffieHellmanKeyPair N g
     let resp2 = 
         Http.RequestString
@@ -201,7 +203,6 @@ let ch37 () =
     let aux = (k * (modExp g x N)) % N
     let s = modExp (modulo (B - aux) N) (a + u * x) N
     let key = Hash.sha256 (s.ToByteArray ())
-    printfn "s: %A" s
     printfn "key: %A" (Data.asHex key)
     let hmacKey = Hash.hmacsha256 key salt
     let resp = 
@@ -210,6 +211,28 @@ let ch37 () =
             headers = [ ContentType HttpContentTypes.Json ],
             body = TextRequest (" {\"I\": \"alice\", \"k\": \"" + (Data.asHex hmacKey) +  "\" }"))
     printfn "%A" resp
+
+    // zero key
+    printfn "2. Zero key session"
+    let resp2 = 
+        Http.RequestString
+            ( "http://127.0.0.1:8080/api/user/newsession",
+            headers = [ ContentType HttpContentTypes.Json ],
+            body = TextRequest (" {\"I\": \"alice\", \"A\": \"" + "0000" +  "\" }"))
+    let jsonResp = JsonValue.Parse(resp2)
+    let Sjson = jsonResp.GetProperty "salt"
+    let salt = Sjson.AsString() |> Data.fromHex
+    let s = 0I
+    let key = Hash.sha256 (s.ToByteArray ())
+    printfn "key: %A" (Data.asHex key)
+    let hmacKey = Hash.hmacsha256 key salt
+    let resp = 
+        Http.RequestString
+            ( "http://127.0.0.1:8080/api/user/validatesession",
+            headers = [ ContentType HttpContentTypes.Json ],
+            body = TextRequest (" {\"I\": \"alice\", \"k\": \"" + (Data.asHex hmacKey) +  "\" }"))
+    printfn "%A" resp
+
 
 
 [<EntryPoint>]
