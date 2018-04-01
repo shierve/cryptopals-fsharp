@@ -13,7 +13,7 @@ let ch9 () =
     printfn "Padded: %s" (Data.pad 20 data |> Data.asHex)
 
 let ch10 () =
-    let path = __SOURCE_DIRECTORY__ + "/data/ch10.txt"
+    let path = __SOURCE_DIRECTORY__ + "/../data/ch10.txt"
     let ciphertext = File.ReadAllLines path |> Array.reduce (+) |> Data.fromB64
     let key = Data.fromString "YELLOW SUBMARINE"
     let iv = Array.create 16 0uy

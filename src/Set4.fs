@@ -9,7 +9,7 @@ open System
 (****  SET 4  ****)
 
 let ch25 () =
-    let path = __SOURCE_DIRECTORY__ + "/data/ch25.txt"
+    let path = __SOURCE_DIRECTORY__ + "/../data/ch25.txt"
     let ct = File.ReadAllLines path |> Array.reduce (+) |> Data.fromB64
     let key = Data.fromString "YELLOW SUBMARINE"
     let plain = Aes.decryptECB ct key |> Data.tryRemovePadding

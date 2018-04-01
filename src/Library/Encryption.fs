@@ -38,7 +38,7 @@ let appendAndEncrypt (append: byte[]) data =
     Aes.encryptECB appended randomKey
 
 let encryptRandomString () =
-    let path = __SOURCE_DIRECTORY__ + "/data/ch17.txt"
+    let path = __SOURCE_DIRECTORY__ + "/../../data/ch17.txt"
     let dataList = File.ReadAllLines path |> Array.map (Data.fromB64 >> Data.pad 16)
     let iv = Array.create 16 0uy
     let rnd = System.Random()

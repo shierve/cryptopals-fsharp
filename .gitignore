@@ -1,3 +1,2 @@
-packages/
-
-CryptoPals/bin/
+src/bin
+src/obj

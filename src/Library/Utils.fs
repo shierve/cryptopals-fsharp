@@ -1,6 +1,6 @@
 module Crypto.Utils
 open System
-open FSharp.Data.JsonExtensions
+open FSharp.Core
 open System.Net
 open FSharp.Data
 
@@ -29,7 +29,7 @@ let timeRequestAsync url =
         // of AsyncDownloadString is bound.
         let start = System.DateTime.Now.Ticks
         try
-            let! _html = webClient.AsyncDownloadString(uri)
+            let _html = webClient.DownloadString(uri)
             return 1000000000L
         with
         | _ ->

@@ -24,7 +24,7 @@ let ch18 () =
     printfn "%s" (plain |> Data.asString)
 
 let ch19 () =
-    let path = __SOURCE_DIRECTORY__ + "/data/ch19.txt"
+    let path = __SOURCE_DIRECTORY__ + "/../data/ch19.txt"
     let key = Data.fromString "YELLOW SUBMARINE"
     let nonce = Data.fromInt 6138071 |> Array.append (Array.create 4 0uy)
     let ciphertexts =
@@ -62,7 +62,7 @@ let ch19 () =
 
 let ch20 () =
     // same as 19, but with higher success
-    let path = __SOURCE_DIRECTORY__ + "/data/ch20.txt"
+    let path = __SOURCE_DIRECTORY__ + "/../data/ch20.txt"
     let key = Data.fromString "YELLOW SUBMARINE"
     let nonce = Data.fromInt 518071 |> Array.append (Array.create 4 0uy)
     let ciphertexts =

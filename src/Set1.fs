@@ -26,7 +26,7 @@ let ch3 () =
     Array.iter (fun (k, d, s) -> printfn "[key: %A] %A (Score: %A)" k (Data.asString d) s) sortedCandidates
 
 let ch4 () =
-    let path = __SOURCE_DIRECTORY__ + "/data/ch4.txt"
+    let path = __SOURCE_DIRECTORY__ + "/../data/ch4.txt"
     let bestKeys =
         File.ReadAllLines path
         |> Array.choose (Data.fromHex >> tryBestKey)
@@ -41,7 +41,7 @@ I go crazy when I hear a cymbal"""
     |> (Data.asHex >> printfn "%s")
 
 let ch6 () =
-    let path = __SOURCE_DIRECTORY__ + "/data/ch6.txt"
+    let path = __SOURCE_DIRECTORY__ + "/../data/ch6.txt"
     let ciphertext =
         File.ReadAllLines path
         |> Array.reduce (+)
@@ -57,14 +57,14 @@ let ch6 () =
     Encryption.repeatingKeyXor ciphertext key |> Data.asString |> printfn "Decrypted Text:\n\n%s"
 
 let ch7 () =
-    let path = __SOURCE_DIRECTORY__ + "/data/ch7.txt"
+    let path = __SOURCE_DIRECTORY__ + "/../data/ch7.txt"
     let ciphertext = File.ReadAllLines path |> Array.reduce (+) |> Data.fromB64
     let key = "YELLOW SUBMARINE" |> Data.fromString
     let plain = Aes.decryptECB ciphertext key
     printfn "Decrypted text:\n\n%s" (Data.asString plain)
 
 let ch8 () =
-    let path = __SOURCE_DIRECTORY__ + "/data/ch8.txt"
+    let path = __SOURCE_DIRECTORY__ + "/../data/ch8.txt"
     let ciphertexts = File.ReadAllLines path |> Array.map Data.fromHex
     let maybeRepeatingBlock =
         ciphertexts

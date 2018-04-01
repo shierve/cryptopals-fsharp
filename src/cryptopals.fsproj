@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="Library/AssemblyInfo.fs" />
+    <Content Include="Library/packages.config" />
+    <Compile Include="Library/RNG.fs" />
+    <Compile Include="Library/Data.fs" />
+    <Compile Include="Library/Utils.fs" />
+    <Compile Include="Library/Hash.fs" />
+    <Compile Include="Library/Aes.fs" />
+    <Compile Include="Library/Math.fs" />
+    <Compile Include="Library/PublicKey.fs" />
+    <Compile Include="Library/Encryption.fs" />
+    <Compile Include="Library/SuaveServer.fs" />
+    <Compile Include="Library/MockServer.fs" />
+    <Compile Include="Library/Analysis.fs" />
+    <Compile Include="Set1.fs" />
+    <Compile Include="Set2.fs" />
+    <Compile Include="Set3.fs" />
+    <Compile Include="Set4.fs" />
+    <Compile Include="Program.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FSharp.Data" Version="2.4.6" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="Suave" Version="2.2.1" />
+  </ItemGroup>
+
+</Project>
