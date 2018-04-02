@@ -21,6 +21,7 @@
     <Compile Include="Set2.fs" />
     <Compile Include="Set3.fs" />
     <Compile Include="Set4.fs" />
+    <Compile Include="Set5.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
   <ItemGroup>
