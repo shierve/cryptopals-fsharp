@@ -159,7 +159,7 @@ module UserController =
                 db.Update newUser
                 |> (Controller.handleResourceNOTFOUND (fun _ ->
                     {
-                        B = (Data.bigIntAsHex B)
+                        B = (Data.fromBigInt B |> Data.asHex)
                         Salt = (Data.asHex user.Salt)
                     } |> Controller.JSON
                 ))

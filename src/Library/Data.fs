@@ -106,5 +106,5 @@ let toBigInt (h: byte[]) =
     let arr = Array.append [| 0uy |] h
     (Numerics.BigInteger(Array.rev arr))
 
-let bigIntAsHex (n: BigInteger) =
-    n.ToByteArray() |> Array.rev |> asHex
+let fromBigInt (n: bigint) =
+    n.ToByteArray () |> Array.rev

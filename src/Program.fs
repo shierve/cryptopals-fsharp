@@ -187,7 +187,7 @@ let ch37 () =
         Http.RequestString
             ( "http://127.0.0.1:8080/api/user/newsession",
             headers = [ ContentType HttpContentTypes.Json ],
-            body = TextRequest (" {\"I\": \"alice\", \"A\": \"" + (Data.bigIntAsHex A) +  "\" }"))
+            body = TextRequest (" {\"I\": \"alice\", \"A\": \"" + (Data.fromBigInt A |> Data.asHex) +  "\" }"))
     let jsonResp = JsonValue.Parse(resp2)
     let Bjson = jsonResp.GetProperty "b"
     let Sjson = jsonResp.GetProperty "salt"
@@ -279,11 +279,11 @@ let ch39 () =
     let c = RSAEncrypt pubK (new bigint 42)
     let p = RSADecrypt privK c
     printfn "decrypted: %A" p
-    let (pubK', privK') = genRSAKeyPair 1024 3
+    let (pubK', privK') = genRSAKeyPair 2048 3
     let m = "the quick brown fox jumps over the lazy dog" |> Data.fromString |> Data.toBigInt
     let c' = RSAEncrypt pubK' m
     let p' = RSADecrypt privK' c'
-    let pm = p'.ToByteArray () |> Array.rev |> Data.asString
+    let pm = p' |> Data.fromBigInt |> Data.asString
     printfn "decrypted: %A" pm
 
 [<EntryPoint>]
