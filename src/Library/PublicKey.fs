@@ -3,7 +3,6 @@ module Crypto.PublicKey
 open System.Numerics
 open Crypto.Math
 open Crypto
-open Crypto
 
 let genDiffieHellmanKeyPair (p: BigInteger) (g: BigInteger) =
     let a = randomBigInteger p
@@ -38,9 +37,9 @@ let genRSAKeyPair (bits: int) (e: int): (RSAPubKey * RSAPrivKey) =
     let et = (p - 1I) * (q - 1I)
     let d = invMod (new bigint(e)) et
     ({e = e; n = n}, {d = d; n = n}) // public | private
-    
+
 let RSAEncrypt (pubK: RSAPubKey) (m: bigint) =
     modExp m (new bigint(pubK.e)) pubK.n
-    
+
 let RSADecrypt (privK: RSAPrivKey) (c: bigint) =
     modExp c privK.d privK.n

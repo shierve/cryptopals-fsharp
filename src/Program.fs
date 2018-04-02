@@ -10,6 +10,7 @@ open Crypto.Math
 open Suave.Web
 open Crypto.SuaveServer.UserController
 open System.Net
+open System.Numerics
 open FSharp.Data
 open FSharp.Data.HttpRequestHeaders
 
@@ -286,6 +287,26 @@ let ch39 () =
     let pm = p' |> Data.fromBigInt |> Data.asString
     printfn "decrypted: %A" pm
 
+let ch40 () =
+    let (pubK0, _) = genRSAKeyPair 2048 3
+    let (pubK1, _) = genRSAKeyPair 2048 3
+    let (pubK2, _) = genRSAKeyPair 2048 3
+    let m = "the quick brown fox jumps over the lazy dog" |> Data.fromString |> Data.toBigInt
+    let c0 = RSAEncrypt pubK0 m
+    let c1 = RSAEncrypt pubK1 m
+    let c2 = RSAEncrypt pubK2 m
+    let ms0 = pubK1.n * pubK2.n
+    let ms1 = pubK0.n * pubK2.n
+    let ms2 = pubK0.n * pubK1.n
+    let accum = (c0 * ms0 * (invMod ms0 pubK0.n)) +
+                (c1 * ms1 * (invMod ms1 pubK1.n)) +
+                (c2 * ms2 * (invMod ms2 pubK2.n))
+    let N = pubK0.n *pubK1.n * pubK2.n
+    let r = modulo accum N
+    let p = iroot 3 r
+    let pm = p |> Data.fromBigInt |> Data.asString
+    printfn "found: %A" pm
+
 [<EntryPoint>]
 let main argv =
     let challenges: (unit -> unit)[] =
@@ -294,7 +315,7 @@ let main argv =
             ch9; ch10; ch11; ch12; ch13; ch14; ch15; ch16;  // SET 2
             ch17; ch18; ch19; ch20; ch21; ch22; ch23; ch24;  // SET 3
             ch25; ch26; ch27; ch28; ch29; ch30; ch31; ch32;  // SET 4
-            ch33; ch34; ch35; ch36; ch37; ch38; ch39; // SET 5
+            ch33; ch34; ch35; ch36; ch37; ch38; ch39; ch40; // SET 5
         |]
     if argv.Length > 0 then
         if (int argv.[0]) = -1 then

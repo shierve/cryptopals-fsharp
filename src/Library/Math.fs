@@ -5,7 +5,7 @@ open System.Numerics
 let modExp a b n =
     BigInteger.ModPow(a, b, n)
 
-let modulo (a: BigInteger) b =
+let modulo (a: bigint) b =
     ((a % b) + b) % b
 
 /// Modular inverse. Uses extended Euclid algorithm.
@@ -66,7 +66,7 @@ let bigintGenerator n =
                x.j <- if x.j = 0 then 54 else (x.j - 1);
                x.k <- if x.k = 0 then 54 else (x.k - 1);
                res)
-               
+
 /// Array of small prime numbers. Used in primality test for optimization.
 let smallPrimes = [|2I; 3I; 5I; 7I; 11I; 13I; 17I; 19I; 23I; 29I; 31I; 37I; 41I; 43I; 47I; 53I; 59I; 61I; 67I; 71I; 73I;
                      79I; 83I; 89I; 97I; 101I; 103I; 107I; 109I; 113I; 127I; 131I; 137I; 139I; 149I; 151I; 157I; 163I; 
@@ -97,8 +97,7 @@ let isPrime x s =
         for i = 1 to t do
             nontrivialRoots <- nontrivialRoots || (next = 1I && prev <> 1I && prev <> (n-1I));
             prev <- next; next <- (prev*prev) % n
-        if (prev <> 1I || nontrivialRoots) then true
-        else false
+        (prev <> 1I || nontrivialRoots)
 
     let millerRabin n s =
         let rand = bigintGenerator (n-2I)
@@ -150,3 +149,13 @@ let nextPrimePredicate rand bits s predicate =
     let randomBigint = nextBigintBits rand bits
     let candidate = if (randomBigint % 2I = 0I) then (randomBigint + 1I) else randomBigint
     searchPrime candidate 1
+
+/// Newton's method. Returns last number s for which s**k does not exceed n
+let iroot k (n: bigint) =
+    let k1 = k - 1
+    let mutable s = n + 1I
+    let mutable u = n
+    while u < s do
+        s <- u
+        u <- ((u * bigint(k1)) + n / (u ** k1)) / bigint(k)
+    s
