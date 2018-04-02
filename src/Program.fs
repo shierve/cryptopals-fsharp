@@ -273,6 +273,18 @@ let ch38 () =
     let partDictionary = Array.splitInto 4 dictionary
     let foundPassword = Array.Parallel.choose findPassword partDictionary
     printfn "found password: %A" foundPassword.[0]
+    
+let ch39 () =
+    let (pubK, privK) = genRSAKeyPair 8 3
+    let c = RSAEncrypt pubK (new bigint 42)
+    let p = RSADecrypt privK c
+    printfn "decrypted: %A" p
+    let (pubK', privK') = genRSAKeyPair 1024 3
+    let m = "the quick brown fox jumps over the lazy dog" |> Data.fromString |> Data.toBigInt
+    let c' = RSAEncrypt pubK' m
+    let p' = RSADecrypt privK' c'
+    let pm = p'.ToByteArray () |> Array.rev |> Data.asString
+    printfn "decrypted: %A" pm
 
 [<EntryPoint>]
 let main argv =
@@ -282,7 +294,7 @@ let main argv =
             ch9; ch10; ch11; ch12; ch13; ch14; ch15; ch16;  // SET 2
             ch17; ch18; ch19; ch20; ch21; ch22; ch23; ch24;  // SET 3
             ch25; ch26; ch27; ch28; ch29; ch30; ch31; ch32;  // SET 4
-            ch33; ch34; ch35; ch36; ch37; ch38; // SET 5
+            ch33; ch34; ch35; ch36; ch37; ch38; ch39; // SET 5
         |]
     if argv.Length > 0 then
         if (int argv.[0]) = -1 then
